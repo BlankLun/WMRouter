@@ -2,9 +2,10 @@ package com.sankuai.waimai.router.core;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.utils.LazyInitHelper;
+
+import androidx.annotation.NonNull;
 
 
 /**

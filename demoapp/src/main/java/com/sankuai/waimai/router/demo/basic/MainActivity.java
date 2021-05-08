@@ -1,8 +1,6 @@
 package com.sankuai.waimai.router.demo.basic;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,6 +14,9 @@ import com.sankuai.waimai.router.demo.R;
 import com.sankuai.waimai.router.demo.lib2.BaseActivity;
 import com.sankuai.waimai.router.demo.lib2.DemoConstant;
 import com.sankuai.waimai.router.demo.lib2.ToastUtils;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * 基本用法Demo

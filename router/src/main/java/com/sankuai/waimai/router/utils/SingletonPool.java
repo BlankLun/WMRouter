@@ -1,6 +1,5 @@
 package com.sankuai.waimai.router.utils;
 
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.components.RouterComponents;
 import com.sankuai.waimai.router.core.Debugger;
@@ -8,6 +7,8 @@ import com.sankuai.waimai.router.service.IFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 /**
  * 单例缓存

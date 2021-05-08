@@ -1,6 +1,5 @@
 package com.sankuai.waimai.router.compiler;
 
-import com.google.auto.service.AutoService;
 import com.sankuai.waimai.router.annotation.RouterPage;
 import com.sankuai.waimai.router.interfaces.Const;
 import com.squareup.javapoet.CodeBlock;
@@ -11,7 +10,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
@@ -20,8 +18,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.MirroredTypesException;
 import javax.lang.model.type.TypeMirror;
 
-@AutoService(Processor.class)
-@SupportedSourceVersion(SourceVersion.RELEASE_7)
+@SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class PageAnnotationProcessor extends BaseProcessor {
 
     @Override

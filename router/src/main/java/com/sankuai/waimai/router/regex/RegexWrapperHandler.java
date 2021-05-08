@@ -1,12 +1,13 @@
 package com.sankuai.waimai.router.regex;
 
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.common.WrapperHandler;
 import com.sankuai.waimai.router.core.UriHandler;
 import com.sankuai.waimai.router.core.UriRequest;
 
 import java.util.regex.Pattern;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by jzj on 2018/3/26.

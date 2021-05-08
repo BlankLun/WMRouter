@@ -1,8 +1,6 @@
 package com.sankuai.waimai.router.service;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.sankuai.waimai.router.annotation.RouterProvider;
 import com.sankuai.waimai.router.components.RouterComponents;
@@ -17,6 +15,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * 通过接口Class获取实现类

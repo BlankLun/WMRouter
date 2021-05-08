@@ -1,14 +1,15 @@
 package com.sankuai.waimai.router.common;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.sankuai.waimai.router.annotation.RouterUri;
 import com.sankuai.waimai.router.components.DefaultOnCompleteListener;
 import com.sankuai.waimai.router.core.RootUriHandler;
 import com.sankuai.waimai.router.regex.RegexAnnotationHandler;
 import com.sankuai.waimai.router.utils.LazyInitHelper;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * 默认的RootHandler实现

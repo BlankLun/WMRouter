@@ -1,8 +1,9 @@
 package com.sankuai.waimai.router.service;
 
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.utils.ProviderPool;
+
+import androidx.annotation.NonNull;
 
 /**
  * 默认的Factory，先尝试Provider，再尝试无参数构造

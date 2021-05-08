@@ -1,7 +1,6 @@
 package com.sankuai.waimai.router.common;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.annotation.RouterPage;
 import com.sankuai.waimai.router.components.RouterComponents;
@@ -10,6 +9,8 @@ import com.sankuai.waimai.router.core.UriRequest;
 import com.sankuai.waimai.router.core.UriResult;
 import com.sankuai.waimai.router.utils.LazyInitHelper;
 import com.sankuai.waimai.router.utils.RouterUtils;
+
+import androidx.annotation.NonNull;
 
 /**
  * 内部页面跳转，由注解 {@link RouterPage} 配置。

@@ -2,7 +2,6 @@ package com.sankuai.waimai.router.demo.advanced.webview;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -16,6 +15,8 @@ import com.sankuai.waimai.router.common.UriParamInterceptor;
 import com.sankuai.waimai.router.demo.R;
 import com.sankuai.waimai.router.demo.lib2.BaseActivity;
 import com.sankuai.waimai.router.demo.lib2.DemoConstant;
+
+import androidx.annotation.Nullable;
 
 /**
  * WebView页面，显示网页

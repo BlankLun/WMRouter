@@ -1,0 +1,4 @@
+com.sankuai.waimai.router.compiler.PageAnnotationProcessor
+com.sankuai.waimai.router.compiler.RegexAnnotationProcessor
+com.sankuai.waimai.router.compiler.ServiceAnnotationProcessor
+com.sankuai.waimai.router.compiler.UriAnnotationProcessor

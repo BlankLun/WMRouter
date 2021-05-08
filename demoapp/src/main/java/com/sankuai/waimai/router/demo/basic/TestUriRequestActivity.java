@@ -2,13 +2,14 @@ package com.sankuai.waimai.router.demo.basic;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.widget.TextView;
 
 import com.sankuai.waimai.router.annotation.RouterUri;
 import com.sankuai.waimai.router.demo.lib2.BaseActivity;
 import com.sankuai.waimai.router.demo.lib2.DemoConstant;
 import com.sankuai.waimai.router.demo.R;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by jzj on 2018/3/27.

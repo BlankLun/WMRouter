@@ -1,11 +1,12 @@
 package com.sankuai.waimai.router.core;
 
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.utils.PriorityList;
 
 import java.util.Iterator;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * 支持添加多个子 {@link UriHandler} ，按先后顺序依次异步执行

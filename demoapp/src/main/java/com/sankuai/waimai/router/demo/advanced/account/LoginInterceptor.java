@@ -1,6 +1,5 @@
 package com.sankuai.waimai.router.demo.advanced.account;
 
-import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.sankuai.waimai.router.core.UriCallback;
@@ -10,6 +9,8 @@ import com.sankuai.waimai.router.core.UriResult;
 import com.sankuai.waimai.router.demo.lib2.CustomUriResult;
 import com.sankuai.waimai.router.demo.lib2.advanced.services.DemoServiceManager;
 import com.sankuai.waimai.router.demo.lib2.advanced.services.IAccountService;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by jzj on 2018/3/20.

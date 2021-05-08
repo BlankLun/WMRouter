@@ -3,7 +3,6 @@ package com.sankuai.waimai.router;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Looper;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.sankuai.waimai.router.annotation.RouterProvider;
@@ -29,6 +28,8 @@ import com.sankuai.waimai.router.service.ServiceImpl;
 import com.sankuai.waimai.router.service.ServiceLoader;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * <p>WMRouter</p>

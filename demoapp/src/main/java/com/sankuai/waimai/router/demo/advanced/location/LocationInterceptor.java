@@ -3,7 +3,6 @@ package com.sankuai.waimai.router.demo.advanced.location;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.core.UriCallback;
 import com.sankuai.waimai.router.core.UriInterceptor;
@@ -13,6 +12,8 @@ import com.sankuai.waimai.router.demo.lib2.DialogUtils;
 import com.sankuai.waimai.router.demo.lib2.ToastUtils;
 import com.sankuai.waimai.router.demo.lib2.advanced.services.DemoServiceManager;
 import com.sankuai.waimai.router.demo.lib2.advanced.services.ILocationService;
+
+import androidx.annotation.NonNull;
 
 /**
  * 用于定位的Interceptor

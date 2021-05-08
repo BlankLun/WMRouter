@@ -1,10 +1,11 @@
 package com.sankuai.waimai.router.common;
 
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.core.UriCallback;
 import com.sankuai.waimai.router.core.UriHandler;
 import com.sankuai.waimai.router.core.UriRequest;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by jzj on 2018/3/30.

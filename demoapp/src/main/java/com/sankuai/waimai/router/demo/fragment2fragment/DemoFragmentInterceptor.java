@@ -9,12 +9,13 @@ package com.sankuai.waimai.router.demo.fragment2fragment;
  * @date 2019/3/5
  */
 
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.core.Debugger;
 import com.sankuai.waimai.router.core.UriCallback;
 import com.sankuai.waimai.router.core.UriInterceptor;
 import com.sankuai.waimai.router.core.UriRequest;
+
+import androidx.annotation.NonNull;
 
 public class DemoFragmentInterceptor implements UriInterceptor {
     @Override

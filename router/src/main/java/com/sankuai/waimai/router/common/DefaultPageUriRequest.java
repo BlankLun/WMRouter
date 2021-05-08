@@ -1,9 +1,10 @@
 package com.sankuai.waimai.router.common;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 import java.util.HashMap;
+
+import androidx.annotation.NonNull;
 
 /**
  * 对应@RouterPage的默认封装子类，自动拼装PageAnnotationHandler.SCHEME_HOST和path，避免每次都要手动拼装

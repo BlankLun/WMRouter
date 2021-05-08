@@ -4,11 +4,12 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityOptionsCompat;
 
 import com.sankuai.waimai.router.activity.StartActivityAction;
 import com.sankuai.waimai.router.core.UriRequest;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 
 /**
  * 用于启动Activity

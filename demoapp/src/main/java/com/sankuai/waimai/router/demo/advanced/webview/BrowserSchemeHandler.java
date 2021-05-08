@@ -1,7 +1,6 @@
 package com.sankuai.waimai.router.demo.advanced.webview;
 
 import android.net.Uri;
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.annotation.RouterUri;
 import com.sankuai.waimai.router.core.UriCallback;
@@ -9,6 +8,8 @@ import com.sankuai.waimai.router.core.UriHandler;
 import com.sankuai.waimai.router.core.UriRequest;
 import com.sankuai.waimai.router.core.UriResult;
 import com.sankuai.waimai.router.demo.lib2.DemoConstant;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by jzj on 2018/3/27.

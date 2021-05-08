@@ -1,7 +1,6 @@
 package com.sankuai.waimai.router.common;
 
 import android.net.Uri;
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.core.UriCallback;
 import com.sankuai.waimai.router.core.UriInterceptor;
@@ -9,6 +8,8 @@ import com.sankuai.waimai.router.core.UriRequest;
 import com.sankuai.waimai.router.utils.RouterUtils;
 
 import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 /**
  * 给uri添加参数。{@link UriRequest} 可设置 {@link UriParamInterceptor#FIELD_URI_APPEND_PARAMS}, 会被自动添加到uri中。

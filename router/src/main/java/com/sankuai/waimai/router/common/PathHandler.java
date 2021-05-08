@@ -1,7 +1,5 @@
 package com.sankuai.waimai.router.common;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.sankuai.waimai.router.components.UriTargetTools;
@@ -14,6 +12,9 @@ import com.sankuai.waimai.router.utils.CaseInsensitiveNonNullMap;
 import com.sankuai.waimai.router.utils.RouterUtils;
 
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * 根据path分发URI给子节点，支持注册的子节点包括ActivityClassName, ActivityClass, UriHandler

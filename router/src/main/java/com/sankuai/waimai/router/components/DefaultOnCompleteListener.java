@@ -1,12 +1,13 @@
 package com.sankuai.waimai.router.components;
 
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.sankuai.waimai.router.core.OnCompleteListener;
 import com.sankuai.waimai.router.core.Debugger;
 import com.sankuai.waimai.router.core.UriRequest;
+
+import androidx.annotation.NonNull;
 
 /**
  * 默认的全局 {@link OnCompleteListener} ，在跳转失败时弹Toast提示

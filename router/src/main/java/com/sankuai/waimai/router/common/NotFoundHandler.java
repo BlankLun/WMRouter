@@ -1,11 +1,12 @@
 package com.sankuai.waimai.router.common;
 
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.core.UriCallback;
 import com.sankuai.waimai.router.core.UriHandler;
 import com.sankuai.waimai.router.core.UriRequest;
 import com.sankuai.waimai.router.core.UriResult;
+
+import androidx.annotation.NonNull;
 
 /**
  * 不支持的跳转链接，返回 {@link UriResult#CODE_NOT_FOUND}

@@ -1,7 +1,6 @@
 package com.sankuai.waimai.router.demo.advanced;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -12,6 +11,8 @@ import com.sankuai.waimai.router.annotation.RouterUri;
 import com.sankuai.waimai.router.demo.R;
 import com.sankuai.waimai.router.demo.lib2.BaseActivity;
 import com.sankuai.waimai.router.demo.lib2.DemoConstant;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by jzj on 2018/3/19.

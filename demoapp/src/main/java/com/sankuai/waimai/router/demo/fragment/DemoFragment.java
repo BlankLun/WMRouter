@@ -2,9 +2,6 @@ package com.sankuai.waimai.router.demo.fragment;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +14,10 @@ import com.sankuai.waimai.router.demo.R;
 import com.sankuai.waimai.router.demo.basic.TestUriRequestActivity;
 import com.sankuai.waimai.router.demo.lib2.DemoConstant;
 import com.sankuai.waimai.router.demo.lib2.ToastUtils;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 /**
  * Created by hailiangliao on 2017/12/25.

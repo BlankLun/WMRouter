@@ -1,7 +1,5 @@
 package com.sankuai.waimai.router.common;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.sankuai.waimai.router.annotation.RouterUri;
@@ -15,6 +13,9 @@ import com.sankuai.waimai.router.utils.RouterUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * URI跳转，通过注解 {@link RouterUri} 配置，可处理多个Scheme+Host。

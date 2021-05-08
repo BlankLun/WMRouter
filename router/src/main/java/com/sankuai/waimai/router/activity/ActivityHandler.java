@@ -2,10 +2,11 @@ package com.sankuai.waimai.router.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.core.UriHandler;
 import com.sankuai.waimai.router.core.UriRequest;
+
+import androidx.annotation.NonNull;
 
 /**
  * 通过Class跳转Activity的 {@link UriHandler}

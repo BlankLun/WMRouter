@@ -1,13 +1,14 @@
 package com.sankuai.waimai.router.demo.app;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.sankuai.waimai.router.common.DefaultUriRequest;
 import com.sankuai.waimai.router.core.OnCompleteListener;
 import com.sankuai.waimai.router.core.UriRequest;
 import com.sankuai.waimai.router.demo.lib2.BaseActivity;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * 接收所有外部跳转的ProxyActivity

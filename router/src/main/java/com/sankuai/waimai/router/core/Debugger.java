@@ -1,9 +1,9 @@
 package com.sankuai.waimai.router.core;
 
-import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.sankuai.waimai.router.interfaces.Const;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by jzj on 2018/1/29.

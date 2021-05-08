@@ -1,9 +1,9 @@
 package com.sankuai.waimai.router.common;
 
-import android.support.annotation.NonNull;
-
 import com.sankuai.waimai.router.core.UriRequest;
 import com.sankuai.waimai.router.utils.RouterUtils;
+
+import androidx.annotation.NonNull;
 
 /**
  * 处理一个固定的scheme+host，并通过path分发

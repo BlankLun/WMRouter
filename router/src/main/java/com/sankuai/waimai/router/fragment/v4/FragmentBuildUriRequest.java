@@ -12,8 +12,6 @@ package com.sankuai.waimai.router.fragment.v4;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
 import com.sankuai.waimai.router.core.Debugger;
@@ -21,6 +19,9 @@ import com.sankuai.waimai.router.core.UriRequest;
 import com.sankuai.waimai.router.fragment.AbsFragmentUriRequest;
 import com.sankuai.waimai.router.fragment.FragmentTransactionHandler;
 import com.sankuai.waimai.router.fragment.StartFragmentAction;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 /**
  * 通过Uri 创建 v4 Fragment的Request

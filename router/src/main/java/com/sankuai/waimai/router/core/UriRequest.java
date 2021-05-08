@@ -2,8 +2,6 @@ package com.sankuai.waimai.router.core;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.sankuai.waimai.router.Router;
@@ -11,6 +9,9 @@ import com.sankuai.waimai.router.utils.RouterUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * 一次URI跳转请求，包含了Request和Response的功能。

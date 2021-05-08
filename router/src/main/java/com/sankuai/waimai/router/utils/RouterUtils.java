@@ -1,12 +1,13 @@
 package com.sankuai.waimai.router.utils;
 
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.sankuai.waimai.router.core.Debugger;
 
 import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by jzj on 2018/3/27.

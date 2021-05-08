@@ -11,7 +11,6 @@ package com.sankuai.waimai.router.fragment;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.sankuai.waimai.router.core.Debugger;
@@ -19,6 +18,8 @@ import com.sankuai.waimai.router.core.UriCallback;
 import com.sankuai.waimai.router.core.UriHandler;
 import com.sankuai.waimai.router.core.UriRequest;
 import com.sankuai.waimai.router.core.UriResult;
+
+import androidx.annotation.NonNull;
 
 import static com.sankuai.waimai.router.components.ActivityLauncher.FIELD_INTENT_EXTRA;
 

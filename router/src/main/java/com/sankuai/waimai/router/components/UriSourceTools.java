@@ -2,10 +2,11 @@ package com.sankuai.waimai.router.components;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.core.Debugger;
 import com.sankuai.waimai.router.core.UriRequest;
+
+import androidx.annotation.NonNull;
 
 /**
  * 跳转来源相关。跳转来源可用于权限控制(exported)、埋点统计等功能。

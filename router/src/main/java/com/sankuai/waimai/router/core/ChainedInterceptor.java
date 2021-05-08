@@ -1,10 +1,9 @@
 package com.sankuai.waimai.router.core;
 
-import android.support.annotation.NonNull;
-
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import androidx.annotation.NonNull;
 
 
 /**

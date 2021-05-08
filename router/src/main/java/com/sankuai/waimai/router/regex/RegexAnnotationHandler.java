@@ -1,6 +1,5 @@
 package com.sankuai.waimai.router.regex;
 
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.annotation.RouterRegex;
 import com.sankuai.waimai.router.components.RouterComponents;
@@ -15,6 +14,8 @@ import com.sankuai.waimai.router.utils.LazyInitHelper;
 
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+
+import androidx.annotation.NonNull;
 
 /**
  * 正则匹配跳转，由注解 {@link RouterRegex} 配置。

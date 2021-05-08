@@ -2,13 +2,14 @@ package com.sankuai.waimai.router.utils;
 
 import android.annotation.TargetApi;
 import android.os.Build;
-import android.support.annotation.NonNull;
 
 import java.util.AbstractList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.function.Consumer;
+
+import androidx.annotation.NonNull;
 
 /**
  * 按优先级从大到小排列。优先级相同时，后加入的放后面。

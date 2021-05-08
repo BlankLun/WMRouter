@@ -1,7 +1,6 @@
 package com.sankuai.waimai.router.demo.advanced.services;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.Router;
 import com.sankuai.waimai.router.annotation.RouterProvider;
@@ -11,6 +10,8 @@ import com.sankuai.waimai.router.demo.lib2.advanced.services.IAccountService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by jzj on 2018/3/26.

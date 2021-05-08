@@ -7,9 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityOptionsCompat;
 
 import com.sankuai.waimai.router.activity.StartActivityAction;
 import com.sankuai.waimai.router.components.ActivityLauncher;
@@ -21,6 +18,10 @@ import com.sankuai.waimai.router.core.UriRequest;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityOptionsCompat;
 
 /**
  * UriRequest的默认封装子类，增加了常用参数的辅助方法，方便使用

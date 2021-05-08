@@ -1,12 +1,13 @@
 package com.sankuai.waimai.router.components;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.core.UriHandler;
 import com.sankuai.waimai.router.core.UriRequest;
 import com.sankuai.waimai.router.service.DefaultFactory;
 import com.sankuai.waimai.router.service.IFactory;
+
+import androidx.annotation.NonNull;
 
 /**
  * 用于配置组件

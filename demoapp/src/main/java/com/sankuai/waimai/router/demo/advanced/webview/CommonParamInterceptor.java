@@ -1,7 +1,6 @@
 package com.sankuai.waimai.router.demo.advanced.webview;
 
 import android.net.Uri;
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.Router;
 import com.sankuai.waimai.router.core.UriCallback;
@@ -11,6 +10,8 @@ import com.sankuai.waimai.router.demo.lib2.DemoConstant;
 import com.sankuai.waimai.router.utils.RouterUtils;
 
 import java.util.HashMap;
+
+import androidx.annotation.NonNull;
 
 /**
  * 给URL添加共通参数

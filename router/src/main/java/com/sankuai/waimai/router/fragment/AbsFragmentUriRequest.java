@@ -11,12 +11,13 @@ package com.sankuai.waimai.router.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.components.ActivityLauncher;
 import com.sankuai.waimai.router.core.UriRequest;
 
 import java.io.Serializable;
+
+import androidx.annotation.NonNull;
 
 /**
  * 带参数的基类 支持了extra参数

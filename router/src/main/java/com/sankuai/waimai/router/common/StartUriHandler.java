@@ -2,7 +2,6 @@ package com.sankuai.waimai.router.common;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 
 import com.sankuai.waimai.router.components.ActivityLauncher;
 import com.sankuai.waimai.router.components.RouterComponents;
@@ -11,6 +10,8 @@ import com.sankuai.waimai.router.core.UriCallback;
 import com.sankuai.waimai.router.core.UriHandler;
 import com.sankuai.waimai.router.core.UriRequest;
 import com.sankuai.waimai.router.core.UriResult;
+
+import androidx.annotation.NonNull;
 
 /**
  * 尝试直接用 {@link Intent#setData(Uri)} 隐式跳转启动Uri的Handler

@@ -1,7 +1,6 @@
 package com.sankuai.waimai.router.demo.advanced.account;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 
@@ -10,6 +9,8 @@ import com.sankuai.waimai.router.demo.R;
 import com.sankuai.waimai.router.demo.lib2.BaseActivity;
 import com.sankuai.waimai.router.demo.lib2.DemoConstant;
 import com.sankuai.waimai.router.demo.lib2.advanced.services.DemoServiceManager;
+
+import androidx.annotation.Nullable;
 
 /**
  * 用户账户页，需要先登录

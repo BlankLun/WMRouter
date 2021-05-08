@@ -12,12 +12,13 @@ package com.sankuai.waimai.router.fragment;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.app.Fragment;
 import android.text.TextUtils;
 
 import com.sankuai.waimai.router.core.Debugger;
 import com.sankuai.waimai.router.core.UriRequest;
+
+import androidx.annotation.NonNull;
 
 /**
  * 通过Uri 创建 Fragment的Request
