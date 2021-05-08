@@ -28,4 +28,4 @@ dependencies {
     api project(':interfaces')
 }
 
-apply from: '../gradle_mvn_push.gradle'
+//apply from: '../gradle_mvn_push.gradle'
