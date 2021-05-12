@@ -6,5 +6,5 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
     api project(path: ':router')
-    annotationProcessor project(path: ':compiler')
+    annotationProcessor project(path: ':RouterCompiler')
 }
