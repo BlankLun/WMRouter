@@ -1,0 +1,48 @@
+apply plugin: 'groovy'
+
+def isDebugPlugin = false
+
+Properties props = new Properties()
+props.load(rootProject.file('../gradle.properties').newDataInputStream())
+isDebugPlugin = props.getProperty('DEBUG_ROUTER_APT')
+def androidPluginVersion = props.getProperty('ANDROID_PLUGIN_VERSION')
+
+repositories {
+    mavenLocal()
+    maven {
+        url uri("${rootProject.rootDir}/.repo")
+    }
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://dl.google.com/dl/android/maven2/' }
+    jcenter()
+    google()
+}
+project.ext.isPublish = project.hasProperty('publishLib')
+
+println "是否调试 ${isDebugPlugin}"
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //gradle sdk
+    implementation gradleApi()
+    //groovy sdk
+    implementation localGroovy()
+
+    implementation "com.android.tools.build:gradle:$androidPluginVersion"
+    implementation 'com.kronos.plugin:BasePlugin:0.2.1'
+}
+
+if (isDebugPlugin) {
+    sourceSets {
+        println "依赖 plugin 源码"
+        main {
+            java.srcDirs += "${project.rootDir.parent}/RouterComponent/RouterCommon/src/main/java"
+            java.srcDirs += "${project.rootDir.parent}/RouterComponent/RouterPlugin/src/main/java"
+            groovy.srcDirs += "${project.rootDir.parent}/RouterComponent/RouterPlugin/src/main/groovy"
+            resources.srcDirs += "${project.rootDir.parent}/RouterComponent/RouterPlugin/src/main/resources"
+        }
+    }
+}
+
