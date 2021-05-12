@@ -1,1 +1,3 @@
-include ':interfaces', ':router', ':compiler', ':plugin', ':demoapp', ':demolib1', ':demolib2', ':demokotlin'
+include ':interfaces', ':router', ':compiler', ':plugin'
+
+apply from: "settings-demo.gradle"

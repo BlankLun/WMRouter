@@ -1,11 +1,10 @@
 apply plugin: 'com.android.library'
 
-apply from: '../GradleConfig/common-build.gradle'
-
+apply from: '../../GradleConfig/common-build.gradle'
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
-    api project(path: ':demolib2')
+    api project(path: ':router')
     annotationProcessor project(path: ':compiler')
 }

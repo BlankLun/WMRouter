@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 
-apply from: '../GradleConfig/common-build.gradle'
+apply from: '../../GradleConfig/common-build.gradle'
 apply plugin: 'WMRouter'
 
 //WMRouter {
