@@ -4,7 +4,7 @@ apply from: '../../GradleConfig/common-build.gradle'
 
 
 dependencies {
-    api project(':interfaces')
+    api project(':RouterCommon')
 }
 
 //apply from: '../gradle_mvn_push.gradle'

@@ -1,6 +1,6 @@
 // router
-include ':interfaces', ':router', ':RouterCompiler', ':plugin'
-project(':interfaces').projectDir = new File("RouterComponent/interfaces")
+include ':RouterCommon', ':router', ':RouterCompiler', ':plugin'
+project(':RouterCommon').projectDir = new File("RouterComponent/RouterCommon")
 project(':router').projectDir = new File("RouterComponent/router")
 project(':RouterCompiler').projectDir = new File("RouterComponent/RouterCompiler")
 project(':plugin').projectDir = new File("RouterComponent/plugin")
