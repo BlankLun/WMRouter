@@ -5,6 +5,6 @@ apply from: '../../GradleConfig/common-build.gradle'
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
-    api project(path: ':router')
+    api project(path: ':RouterApi')
     annotationProcessor project(path: ':RouterCompiler')
 }
