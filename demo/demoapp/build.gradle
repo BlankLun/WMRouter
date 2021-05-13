@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 apply from: '../../GradleConfig/common-build.gradle'
-apply plugin: 'WMRouter'
+apply from: '../../GradleConfig/apply-router-build.gradle'
 
 //WMRouter {
 //    enableDebug = true // 调试开关

@@ -1,10 +1,8 @@
 apply plugin: 'com.android.library'
 
 apply from: '../../GradleConfig/common-build.gradle'
+apply from: '../../GradleConfig/apply-router-build.gradle'
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-
-    api project(path: ':RouterApi')
-    annotationProcessor project(path: ':RouterCompiler')
 }

@@ -1,11 +1,10 @@
 apply plugin: 'com.android.library'
 
 apply from: '../../GradleConfig/common-build.gradle'
-apply plugin: 'kotlin-kapt'
+apply from: '../../GradleConfig/apply-router-build.gradle'
 
 dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     api project(path: ':demolib2')
-    kapt project(path: ':RouterCompiler')
 }
