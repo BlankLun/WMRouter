@@ -1,0 +1,16 @@
+plugins {
+    id 'com.android.dynamic-feature'
+}
+
+apply from: '../../GradleConfig/common-build.gradle'
+apply from: '../../GradleConfig/apply-router-build.gradle'
+
+android {
+    defaultConfig {
+        applicationId "com.lkl.dynamicfeature"
+    }
+}
+
+dependencies {
+    implementation project(":demoapp")
+}

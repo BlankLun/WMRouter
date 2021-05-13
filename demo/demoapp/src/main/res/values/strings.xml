@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WMRouter</string>
+    <string name="title_dynamicfeature">DynamicFeature</string>
 </resources>
