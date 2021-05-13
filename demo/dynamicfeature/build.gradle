@@ -13,4 +13,6 @@ android {
 
 dependencies {
     implementation project(":demoapp")
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'com.google.android.material:material:1.2.1'
 }

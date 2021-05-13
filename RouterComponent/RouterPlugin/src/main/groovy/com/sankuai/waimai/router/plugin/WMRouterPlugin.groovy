@@ -2,7 +2,7 @@ package com.sankuai.waimai.router.plugin;
 
 import com.android.build.gradle.BaseExtension
 import com.sankuai.waimai.router.interfaces.Const
-
+import com.sankuai.waimai.router.utils.CommonUtils
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -10,7 +10,10 @@ import org.gradle.api.Project
  * 插件所做工作：将注解生成器生成的初始化类汇总到ServiceLoaderInit，运行时直接调用ServiceLoaderInit
  */
 class WMRouterPlugin implements Plugin<Project> {
-    Project mProject
+    private static final String FEATURE_MODULE_ID = "FEATURE_MODULE_ID"
+
+    private Project mProject
+    private String mModuleName
 
     @Override
     void apply(Project project) {
@@ -20,25 +23,82 @@ class WMRouterPlugin implements Plugin<Project> {
         }
 
         mProject = project
+
+        if (hasDynamicFeaturePlugin(project)) {
+            // 动态特性模块设置编译属性
+            configCompileOptions()
+        }
+
         // 自动添加路由框架模块依赖
         addDependencies()
 
-        if (hasApplicationPlugin(project)) {
-            // Application模块处理ASM注入代码
-            registerTransform()
+        if (hasApplicationPlugin(project) || hasDynamicFeaturePlugin(project)) {
+            // Application、DynamicFeature 模块处理ASM注入代码
+            registerTransform(hasApplicationPlugin(project), mModuleName)
         }
     }
 
-    private void registerTransform() {
+    private void registerTransform(boolean isApplication, String moduleName) {
         WMRouterExtension extension = mProject.getExtensions() \
                 .create(Const.NAME, WMRouterExtension)
 
         WMRouterLogger.info"register transform"
         mProject.getExtensions().findByType(BaseExtension) \
-                .registerTransform(new WMRouterTransform())
+                .registerTransform(new WMRouterTransform(isApplication, moduleName))
 
         mProject.afterEvaluate {
             p -> WMRouterLogger.setConfig(extension)
+        }
+    }
+
+    private void configCompileOptions() {
+        mModuleName = getModuleName()
+        WMRouterLogger.info "configCompileOptions moduleName: ${mModuleName}"
+        addConfigCompileOption(Const.FEATURE_MODULE_NAME_KEY, mModuleName)
+    }
+
+    private String getModuleName() {
+        String artifactId = getFeatureModuleId()
+        if (!CommonUtils.isEmpty(artifactId)) {
+            return artifactId
+        }
+
+        // 获取 apt 需要的模块名称
+        return mProject.name
+    }
+
+    private String getFeatureModuleId() {
+        String featureModuleId = getProjectProperty(FEATURE_MODULE_ID)
+        if (CommonUtils.isEmpty(featureModuleId)) {
+            return null
+        }
+        return featureModuleId
+    }
+
+    private String getProjectProperty(String propertyName) {
+        if (mProject.hasProperty(propertyName)) {
+            return mProject.property(propertyName)
+        }
+        return null
+    }
+
+    /**
+     * 添加编译选项，用于compiler编译时获取option
+     *
+     * @param key 配置的key
+     * @param value 配置的值
+     */
+    private void addConfigCompileOption(String key, String value) {
+        mProject.android.defaultConfig {
+            javaCompileOptions {
+                annotationProcessorOptions {
+                    if (arguments == null) {
+                        arguments = [(key): value]
+                    } else {
+                        arguments.put((key), value)
+                    }
+                }
+            }
         }
     }
 
@@ -50,11 +110,15 @@ class WMRouterPlugin implements Plugin<Project> {
     }
 
     static boolean hasAndroidPlugin(Project project) {
-        return hasApplicationPlugin(project) || hasLibraryPlugin(project)
+        return hasApplicationPlugin(project) || hasLibraryPlugin(project) || hasDynamicFeaturePlugin(project)
     }
 
     static boolean hasApplicationPlugin(Project project) {
         return project.plugins.hasPlugin('com.android.application')
+    }
+
+    static boolean hasDynamicFeaturePlugin(Project project) {
+        return project.plugins.hasPlugin('com.android.dynamic-feature')
     }
 
     static boolean hasLibraryPlugin(Project project) {

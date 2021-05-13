@@ -289,4 +289,20 @@ public abstract class BaseProcessor extends AbstractProcessor {
             }
         }
     }
+
+    /**
+     * android {
+     *      ...
+     *      defaultConfig {
+     *          ...
+     *          javaCompileOptions { annotationProcessorOptions { arguments = [key: value] } }
+     *      }
+     *      ...
+     * }
+     * @param key 上述配置中的key
+     * @return 上述配置中的value
+     */
+    protected String getOption(String key) {
+        return processingEnv.getOptions().get(key);
+    }
 }

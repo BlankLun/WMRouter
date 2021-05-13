@@ -3,12 +3,18 @@
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.lkl.dynamicfeature">
 
+    <application>
+        <activity android:name=".DynamicFeatureActivity1"></activity>
+    </application>
+
     <dist:module
         dist:instant="false"
         dist:title="@string/title_dynamicfeature">
         <dist:delivery>
             <dist:on-demand />
         </dist:delivery>
+
         <dist:fusing dist:include="false" />
     </dist:module>
+
 </manifest>

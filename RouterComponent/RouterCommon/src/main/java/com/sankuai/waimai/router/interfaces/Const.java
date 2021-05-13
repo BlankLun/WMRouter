@@ -13,9 +13,10 @@ public class Const {
     public static final String SPLITTER = "_";
 
     /**
-     * ServiceLoader初始化
+     * 生成的ServiceLoader初始化类的前缀
      */
-    public static final String SERVICE_LOADER_INIT = GEN_PKG + ".ServiceLoaderInit";
+    public static final String SERVICE_LOADER_INIT_PREFIX = GEN_PKG + ".ServiceLoaderInit";
+    public static final String SERVICE_LOADER_INIT_SUFFIX_APPLICATION = "Application";
 
     public static final char DOT = '.';
 
@@ -50,5 +51,18 @@ public class Const {
     // Android中的类名
     public static final String FRAGMENT_CLASS = "android.app.Fragment";
     public static final String FRAGMENT_V4_CLASS = "androidx.fragment.app.Fragment";
+
+    /**
+     * android {
+     *      ...
+     *      defaultConfig {
+     *          ...
+     *          javaCompileOptions { annotationProcessorOptions { arguments = [key: value] } }
+     *      }
+     *      ...
+     * }
+     * 上述配置中的key
+     */
+    public static final String FEATURE_MODULE_NAME_KEY = "featureModuleName";
 
 }

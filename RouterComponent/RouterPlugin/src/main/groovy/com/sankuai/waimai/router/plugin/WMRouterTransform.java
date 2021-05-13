@@ -13,6 +13,7 @@ import com.kronos.plugin.base.ClassUtils;
 import com.kronos.plugin.base.DeleteCallBack;
 import com.kronos.plugin.base.TransformCallBack;
 import com.sankuai.waimai.router.interfaces.Const;
+import com.sankuai.waimai.router.utils.CommonUtils;
 import com.sankuai.waimai.router.plugin.visitor.ClassFilterVisitor;
 
 import org.apache.commons.compress.utils.IOUtils;
@@ -55,6 +56,14 @@ public class WMRouterTransform extends Transform {
      * com/sankuai/waimai/router/generated/service
      */
     public static final String INIT_SERVICE_PATH = Const.GEN_PKG_SERVICE.replace('.', '/');
+
+    private boolean isApplication;
+    private String moduleName;
+
+    public WMRouterTransform(boolean isApplication, String moduleName) {
+        this.isApplication = isApplication;
+        this.moduleName = moduleName;
+    }
 
     @Override
     public String getName() {
@@ -189,7 +198,14 @@ public class WMRouterTransform extends Transform {
                 ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
                 ClassVisitor cv = new ClassVisitor(Opcodes.ASM5, writer) {
                 };
-                String className = Const.SERVICE_LOADER_INIT.replace('.', '/');
+                String className = Const.SERVICE_LOADER_INIT_PREFIX;
+                if (isApplication) {
+                    className += Const.SERVICE_LOADER_INIT_SUFFIX_APPLICATION;
+                } else {
+                    className += CommonUtils.capitalize(moduleName);
+                }
+                className = className.replace('.', '/');
+
                 cv.visit(50, Opcodes.ACC_PUBLIC, className, null, "java/lang/Object", null);
 
                 MethodVisitor mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC,
