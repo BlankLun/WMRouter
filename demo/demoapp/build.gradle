@@ -39,5 +39,6 @@ dependencies {
     api project(path: ':demolib1')
     api project(path: ':demokotlin')
 
-//    api "com.google.android.play:core:${versions.playcore}"
+    api "com.google.android.play:core:${versions.playcore}"
+    api 'androidx.constraintlayout:constraintlayout:2.0.1'
 }

@@ -58,4 +58,7 @@ public class DemoConstant {
     public static final String TEST_DEMO_FRAGMENT_1 = "/fragment/demo_fragment_1";
     public static final String TEST_DEMO_FRAGMENT_2 = "/fragment/demo_fragment_2";
 
+    // dynamic feature demo
+    public static final String DYNAMIC_FEATURE_DEMO = "/dynamic_feature_demo";
+
 }

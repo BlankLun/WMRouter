@@ -61,6 +61,7 @@ public class MainActivity extends BaseActivity {
 
             // 高级Demo页面
             DemoConstant.ADVANCED_DEMO,
+            DemoConstant.DYNAMIC_FEATURE_DEMO
     };
 
     @Override

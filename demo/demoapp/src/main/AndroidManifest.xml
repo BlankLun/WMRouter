@@ -48,6 +48,24 @@
         <activity android:name=".advanced.abtest.HomeActivityB" />
         <activity android:name=".fragment.FragmentDemoActivity" />
         <activity android:name=".fragment2fragment.FragmentToFragmentDemoActivity"/>
+        <activity android:name=".feature.FeatureTestActivity">
+          <!--  <intent-filter
+                android:autoVerify="true"
+                android:order="1">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="uabsample-405d6.firebaseapp.com" />
+                <data android:path="/" />
+            </intent-filter>
+            <meta-data
+                android:name="default-url"
+                android:value="https://uabsample-405d6.firebaseapp.com/" />-->
+        </activity>
     </application>
 
 </manifest>
