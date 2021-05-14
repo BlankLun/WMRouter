@@ -28,6 +28,8 @@ import com.sankuai.waimai.router.service.IFactory;
 import com.sankuai.waimai.router.service.ServiceImpl;
 import com.sankuai.waimai.router.service.ServiceLoader;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -183,6 +185,17 @@ public class Router {
         return ServiceLoader.load(moduleName, clazz);
     }
 
+
+    @Nullable
+    private static <I> I getService(List<I> services, Class<I> clazz) {
+        if (services.size() == 1) {
+            return services.get(0);
+        } else if (services.size() > 1) {
+            Debugger.fatal(DefaultServiceException.foundMoreThanOneImpl(clazz));
+        }
+        return null;
+    }
+
     /**
      * 创建 指定的clazz的默认实现类的实例，如果没有任何一个实现类指定了{@link RouterService#defaultImpl()},
      * 则会判断 指定的clazz的实现类是否只有一个，如果只有一个则会使用该实现类构造
@@ -206,16 +219,10 @@ public class Router {
         if (service != null) {
             return service;
         } else {
-            final List<I> services = getAllServices(moduleName, clazz);
-            if (services.size() == 1) {
-                return services.get(0);
-            } else if (services.size() > 1) {
-                Debugger.fatal(DefaultServiceException.foundMoreThanOneImpl(clazz));
-            }
+            List<I> services = getAllServices(moduleName, clazz);
+            return getService(services, clazz);
         }
-        return null;
     }
-
 
     /**
      * 创建 指定的clazz的默认实现类的实例，使用context参数构造，如果没有任何一个实现类指定了{@link RouterService#defaultImpl()},
@@ -240,14 +247,9 @@ public class Router {
         if (service != null) {
             return service;
         } else {
-            final List<I> services = getAllServices(moduleName, clazz, context);
-            if (services.size() == 1) {
-                return services.get(0);
-            } else if (services.size() > 1) {
-                Debugger.fatal(DefaultServiceException.foundMoreThanOneImpl(clazz));
-            }
+            List<I> services = getAllServices(moduleName, clazz, context);
+            return getService(services, clazz);
         }
-        return null;
     }
 
     /**
@@ -273,14 +275,9 @@ public class Router {
         if (service != null) {
             return service;
         } else {
-            final List<I> services = getAllServices(moduleName, clazz, factory);
-            if (services.size() == 1) {
-                return services.get(0);
-            } else if (services.size() > 1) {
-                Debugger.fatal(DefaultServiceException.foundMoreThanOneImpl(clazz));
-            }
+            List<I> services = getAllServices(moduleName, clazz, factory);
+            return getService(services, clazz);
         }
-        return null;
     }
 
     /**
