@@ -4,7 +4,5 @@ apply from: '../../GradleConfig/common-build.gradle'
 apply from: '../../GradleConfig/apply-router-build.gradle'
 
 dependencies {
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
     api project(path: ':demolib2')
 }

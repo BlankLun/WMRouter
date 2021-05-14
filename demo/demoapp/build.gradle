@@ -38,5 +38,6 @@ android {
 dependencies {
     api project(path: ':demolib1')
     api project(path: ':demokotlin')
-    annotationProcessor project(path: ':RouterCompiler')
+
+//    api "com.google.android.play:core:${versions.playcore}"
 }

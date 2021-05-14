@@ -16,7 +16,7 @@ class KotlinActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         val a = Router.callMethod(DemoConstant.ADD_METHOD, 2, 3) as Int
         val txt = TextView(this)
-        txt.text = "Kotlin模块调用Java模块的Service：\n2 + 3 = " + a.toString()
+        txt.text = "Kotlin模块调用Java模块的Service：\n2 + 3 = $a"
         setContentView(txt)
     }
 }
