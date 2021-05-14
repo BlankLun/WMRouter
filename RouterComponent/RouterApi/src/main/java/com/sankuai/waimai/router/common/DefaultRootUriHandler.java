@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 
 /**
  * 默认的RootHandler实现
- *
+ * <p>
  * Created by jzj on 2018/3/23.
  */
 
@@ -29,10 +29,9 @@ public class DefaultRootUriHandler extends RootUriHandler {
 
     /**
      * @param defaultScheme {@link RouterUri} 没有指定scheme时，则使用这里设置的defaultScheme
-     * @param defaultHost   {@link RouterUri} 没有指定host时，则使用这里设置的defaultHost
+     * @param defaultHost {@link RouterUri} 没有指定host时，则使用这里设置的defaultHost
      */
-    public DefaultRootUriHandler(Context context,
-                                 @Nullable String defaultScheme, @Nullable String defaultHost) {
+    public DefaultRootUriHandler(Context context, @Nullable String defaultScheme, @Nullable String defaultHost) {
         super(context);
         mPageAnnotationHandler = createPageAnnotationHandler();
         mUriAnnotationHandler = createUriAnnotationHandler(defaultScheme, defaultHost);
@@ -57,10 +56,10 @@ public class DefaultRootUriHandler extends RootUriHandler {
     /**
      * @see LazyInitHelper#lazyInit()
      */
-    public void lazyInit() {
-        mPageAnnotationHandler.lazyInit();
-        mUriAnnotationHandler.lazyInit();
-        mRegexAnnotationHandler.lazyInit();
+    public void lazyInit(@NonNull String moduleName) {
+        mPageAnnotationHandler.lazyInit(moduleName);
+        mUriAnnotationHandler.lazyInit(moduleName);
+        mRegexAnnotationHandler.lazyInit(moduleName);
     }
 
     public PageAnnotationHandler getPageAnnotationHandler() {
@@ -82,7 +81,7 @@ public class DefaultRootUriHandler extends RootUriHandler {
 
     @NonNull
     protected UriAnnotationHandler createUriAnnotationHandler(@Nullable String defaultScheme,
-                                                              @Nullable String defaultHost) {
+            @Nullable String defaultHost) {
         return new UriAnnotationHandler(defaultScheme, defaultHost);
     }
 

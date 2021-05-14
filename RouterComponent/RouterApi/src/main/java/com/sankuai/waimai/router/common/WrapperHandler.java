@@ -24,13 +24,13 @@ public class WrapperHandler extends UriHandler {
     }
 
     @Override
-    protected boolean shouldHandle(@NonNull UriRequest request) {
+    protected boolean shouldHandle(@NonNull String moduleName, @NonNull UriRequest request) {
         return true;
     }
 
     @Override
-    protected void handleInternal(@NonNull UriRequest request, @NonNull UriCallback callback) {
-        mDelegate.handle(request, callback);
+    protected void handleInternal(@NonNull String moduleName, @NonNull UriRequest request, @NonNull UriCallback callback) {
+        mDelegate.handle(moduleName, request, callback);
     }
 
     @Override

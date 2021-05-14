@@ -15,19 +15,19 @@ import androidx.annotation.NonNull;
 
 /**
  * 跳转Activity的 {@link UriHandler}
- *
+ * <p>
  * Created by jzj on 2017/4/11.
  */
 public abstract class AbsActivityHandler extends UriHandler {
 
     @Override
-    protected boolean shouldHandle(@NonNull UriRequest request) {
+    protected boolean shouldHandle(@NonNull String moduleName, @NonNull UriRequest request) {
         return true;
     }
 
     @SuppressWarnings("ConstantConditions")
     @Override
-    protected void handleInternal(@NonNull UriRequest request, @NonNull UriCallback callback) {
+    protected void handleInternal(@NonNull String moduleName, @NonNull UriRequest request, @NonNull UriCallback callback) {
         // 创建Intent
         Intent intent = createIntent(request);
         if (intent == null || intent.getComponent() == null) {

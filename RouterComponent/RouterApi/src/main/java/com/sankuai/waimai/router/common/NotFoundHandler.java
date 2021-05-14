@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 
 /**
  * 不支持的跳转链接，返回 {@link UriResult#CODE_NOT_FOUND}
- *
+ * <p>
  * Created by jzj on 2018/3/22.
  */
 
@@ -19,12 +19,12 @@ public class NotFoundHandler extends UriHandler {
     public static final NotFoundHandler INSTANCE = new NotFoundHandler();
 
     @Override
-    public boolean shouldHandle(@NonNull UriRequest request) {
+    public boolean shouldHandle(@NonNull String moduleName, @NonNull UriRequest request) {
         return true;
     }
 
     @Override
-    protected void handleInternal(@NonNull UriRequest request, @NonNull UriCallback callback) {
+    protected void handleInternal(@NonNull String moduleName, @NonNull UriRequest request, @NonNull UriCallback callback) {
         callback.onComplete(UriResult.CODE_NOT_FOUND);
     }
 

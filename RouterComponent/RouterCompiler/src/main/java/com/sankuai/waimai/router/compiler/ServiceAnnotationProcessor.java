@@ -81,9 +81,9 @@ public class ServiceAnnotationProcessor extends BaseProcessor {
                         mEntityMap.put(interfaceName, entity);
                     }
 
-                    if (defaultImpl){
+                    if (defaultImpl) {
                         //如果设置为默认实现，则手动添加一个内部标识默认实现的key
-                        entity.put(ServiceImpl.DEFAULT_IMPL_KEY,implementationName,singleton);
+                        entity.put(ServiceImpl.DEFAULT_IMPL_KEY, implementationName, singleton);
                     }
 
                     if (keys.length > 0) {
@@ -107,10 +107,12 @@ public class ServiceAnnotationProcessor extends BaseProcessor {
         if (mEntityMap.isEmpty() || mHash == null) {
             return;
         }
+
+        String moduleName = getModuleName();
         ServiceInitClassBuilder generator = new ServiceInitClassBuilder("ServiceInit" + Const.SPLITTER + mHash);
         for (Map.Entry<String, Entity> entry : mEntityMap.entrySet()) {
             for (ServiceImpl service : entry.getValue().getMap().values()) {
-                generator.put(entry.getKey(), service.getKey(), service.getImplementation(), service.isSingleton());
+                generator.put(moduleName, entry.getKey(), service.getKey(), service.getImplementation(), service.isSingleton());
             }
         }
         generator.build();

@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 
 /**
  * 处理一个固定的scheme+host，并通过path分发
- *
+ * <p>
  * Created by jzj on 17/2/27.
  */
 public class SchemeHandler extends PathHandler {
@@ -20,7 +20,7 @@ public class SchemeHandler extends PathHandler {
     }
 
     @Override
-    public boolean shouldHandle(@NonNull UriRequest request) {
+    public boolean shouldHandle(@NonNull String moduleName, @NonNull UriRequest request) {
         return matchSchemeHost(request);
     }
 

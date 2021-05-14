@@ -42,12 +42,13 @@ public final class FragmentTransactionHandler extends UriHandler {
     }
 
     @Override
-    protected boolean shouldHandle(@NonNull UriRequest request) {
+    protected boolean shouldHandle(@NonNull String moduleName, @NonNull UriRequest request) {
         return true;
     }
 
     @Override
-    protected void handleInternal(@NonNull UriRequest request, @NonNull UriCallback callback) {
+    protected void handleInternal(@NonNull String moduleName, @NonNull UriRequest request,
+            @NonNull UriCallback callback) {
         if (TextUtils.isEmpty(mClassName)) {
             Debugger.fatal("FragmentTransactionHandler.handleInternal()应返回的带有ClassName");
             callback.onComplete(UriResult.CODE_BAD_REQUEST);

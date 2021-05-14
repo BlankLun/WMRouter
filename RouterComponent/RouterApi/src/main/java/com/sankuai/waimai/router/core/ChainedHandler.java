@@ -39,23 +39,24 @@ public class ChainedHandler extends UriHandler {
     }
 
     @Override
-    protected boolean shouldHandle(@NonNull UriRequest request) {
+    protected boolean shouldHandle(@NonNull String moduleName, @NonNull UriRequest request) {
         return !mHandlers.isEmpty();
     }
 
     @Override
-    protected void handleInternal(@NonNull final UriRequest request, @NonNull final UriCallback callback) {
-        next(mHandlers.iterator(), request, callback);
+    protected void handleInternal(@NonNull String moduleName, @NonNull final UriRequest request,
+            @NonNull final UriCallback callback) {
+        next(moduleName, mHandlers.iterator(), request, callback);
     }
 
-    private void next(@NonNull final Iterator<UriHandler> iterator, @NonNull final UriRequest request,
-                      @NonNull final UriCallback callback) {
+    private void next(@NonNull String moduleName, @NonNull final Iterator<UriHandler> iterator,
+            @NonNull final UriRequest request, @NonNull final UriCallback callback) {
         if (iterator.hasNext()) {
             UriHandler t = iterator.next();
-            t.handle(request, new UriCallback() {
+            t.handle(moduleName, request, new UriCallback() {
                 @Override
                 public void onNext() {
-                    next(iterator, request, callback);
+                    next(moduleName, iterator, request, callback);
                 }
 
                 @Override

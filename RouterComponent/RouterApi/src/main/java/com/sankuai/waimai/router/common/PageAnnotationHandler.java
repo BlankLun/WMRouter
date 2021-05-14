@@ -10,13 +10,16 @@ import com.sankuai.waimai.router.core.UriResult;
 import com.sankuai.waimai.router.utils.LazyInitHelper;
 import com.sankuai.waimai.router.utils.RouterUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import androidx.annotation.NonNull;
 
 /**
  * 内部页面跳转，由注解 {@link RouterPage} 配置。
  * {@link PageAnnotationHandler} 处理且只处理所有格式为 wm_router://page/* 的URI，根据path匹配，
  * 匹配不到的分发给 {@link NotFoundHandler} ，返回 {@link UriResult#CODE_NOT_FOUND}
- *
+ * <p>
  * Created by jzj on 2018/3/23.
  */
 
@@ -30,12 +33,36 @@ public class PageAnnotationHandler extends PathHandler {
         return intent != null && SCHEME_HOST.equals(RouterUtils.schemeHost(intent.getData()));
     }
 
-    private final LazyInitHelper mInitHelper = new LazyInitHelper("PageAnnotationHandler") {
+    private final Map<String, LazyInitHelper> sInitHelpers = new HashMap<>();
+
+    private class PageAnnotationLazyInitHelper extends LazyInitHelper {
+        private final String mModuleName;
+
+        public PageAnnotationLazyInitHelper(@NonNull String moduleName) {
+            super("PageAnnotationHandler:" + moduleName);
+            this.mModuleName = moduleName;
+        }
+
         @Override
         protected void doInit() {
-            initAnnotationConfig();
+            initAnnotationConfig(mModuleName);
         }
-    };
+    }
+
+    @NonNull
+    private LazyInitHelper getLazyInitHelper(@NonNull String moduleName) {
+        LazyInitHelper lazyInitHelper = sInitHelpers.get(moduleName);
+        if (lazyInitHelper == null) {
+            synchronized (sInitHelpers) {
+                lazyInitHelper = sInitHelpers.get(moduleName);
+                if (lazyInitHelper == null) {
+                    lazyInitHelper = new PageAnnotationLazyInitHelper(moduleName);
+                    sInitHelpers.put(moduleName, lazyInitHelper);
+                }
+            }
+        }
+        return lazyInitHelper;
+    }
 
     public PageAnnotationHandler() {
         addInterceptor(NotExportedInterceptor.INSTANCE); // exported全为false
@@ -45,22 +72,22 @@ public class PageAnnotationHandler extends PathHandler {
     /**
      * @see LazyInitHelper#lazyInit()
      */
-    public void lazyInit() {
-        mInitHelper.lazyInit();
+    public void lazyInit(@NonNull String moduleName) {
+        getLazyInitHelper(moduleName).lazyInit();
     }
 
-    protected void initAnnotationConfig() {
-        RouterComponents.loadAnnotation(this, IPageAnnotationInit.class);
-    }
-
-    @Override
-    public void handle(@NonNull UriRequest request, @NonNull UriCallback callback) {
-        mInitHelper.ensureInit();
-        super.handle(request, callback);
+    protected void initAnnotationConfig(@NonNull String moduleName) {
+        RouterComponents.loadAnnotation(moduleName, this, IPageAnnotationInit.class);
     }
 
     @Override
-    protected boolean shouldHandle(@NonNull UriRequest request) {
+    public void handle(@NonNull String moduleName, @NonNull UriRequest request, @NonNull UriCallback callback) {
+        getLazyInitHelper(moduleName).ensureInit();
+        super.handle(moduleName, request, callback);
+    }
+
+    @Override
+    protected boolean shouldHandle(@NonNull String moduleName, @NonNull UriRequest request) {
         return SCHEME_HOST.matches(request.schemeHost());
     }
 

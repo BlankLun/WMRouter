@@ -3,8 +3,8 @@ package com.sankuai.waimai.router.common;
 import android.text.TextUtils;
 
 import com.sankuai.waimai.router.components.UriTargetTools;
-import com.sankuai.waimai.router.core.UriCallback;
 import com.sankuai.waimai.router.core.Debugger;
+import com.sankuai.waimai.router.core.UriCallback;
 import com.sankuai.waimai.router.core.UriHandler;
 import com.sankuai.waimai.router.core.UriInterceptor;
 import com.sankuai.waimai.router.core.UriRequest;
@@ -18,7 +18,7 @@ import androidx.annotation.Nullable;
 
 /**
  * 根据path分发URI给子节点，支持注册的子节点包括ActivityClassName, ActivityClass, UriHandler
- *
+ * <p>
  * Created by jzj on 2018/3/26.
  */
 public class PathHandler extends UriHandler {
@@ -51,9 +51,9 @@ public class PathHandler extends UriHandler {
     /**
      * 注册一个子节点
      *
-     * @param path         path
-     * @param target       支持ActivityClassName、ActivityClass、UriHandler
-     * @param exported     是否允许外部跳转
+     * @param path path
+     * @param target 支持ActivityClassName、ActivityClass、UriHandler
+     * @param exported 是否允许外部跳转
      * @param interceptors 要添加的interceptor
      */
     public void register(String path, Object target, boolean exported,
@@ -71,8 +71,8 @@ public class PathHandler extends UriHandler {
     /**
      * 注册一个子Handler
      *
-     * @param path         path
-     * @param handler      支持ActivityClassName、ActivityClass、UriHandler；exported默认为false
+     * @param path path
+     * @param handler 支持ActivityClassName、ActivityClass、UriHandler；exported默认为false
      * @param interceptors 要添加的interceptor
      */
     public void register(String path, Object handler, UriInterceptor... interceptors) {
@@ -106,19 +106,19 @@ public class PathHandler extends UriHandler {
     }
 
     @Override
-    protected boolean shouldHandle(@NonNull UriRequest request) {
+    protected boolean shouldHandle(@NonNull String moduleName, @NonNull UriRequest request) {
         return mDefaultHandler != null || getChild(request) != null;
     }
 
     @Override
-    protected void handleInternal(@NonNull final UriRequest request,
+    protected void handleInternal(@NonNull String moduleName, @NonNull final UriRequest request,
             @NonNull final UriCallback callback) {
         UriHandler h = getChild(request);
         if (h != null) {
-            h.handle(request, new UriCallback() {
+            h.handle(moduleName, request, new UriCallback() {
                 @Override
                 public void onNext() {
-                    handleByDefault(request, callback);
+                    handleByDefault(moduleName, request, callback);
                 }
 
                 @Override
@@ -127,14 +127,14 @@ public class PathHandler extends UriHandler {
                 }
             });
         } else {
-            handleByDefault(request, callback);
+            handleByDefault(moduleName, request, callback);
         }
     }
 
-    private void handleByDefault(@NonNull UriRequest request, @NonNull UriCallback callback) {
+    private void handleByDefault(@NonNull String moduleName, @NonNull UriRequest request, @NonNull UriCallback callback) {
         UriHandler defaultHandler = mDefaultHandler;
         if (defaultHandler != null) {
-            defaultHandler.handle(request, callback);
+            defaultHandler.handle(moduleName, request, callback);
         } else {
             callback.onNext();
         }

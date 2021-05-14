@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 
 /**
  * 最顶层的 {@link UriHandler}
- *
+ * <p>
  * Created by jzj on 2017/4/17.
  */
 public class RootUriHandler extends ChainedHandler {
@@ -29,7 +29,7 @@ public class RootUriHandler extends ChainedHandler {
     /**
      * @see LazyInitHelper#lazyInit()
      */
-    public void lazyInit() {
+    public void lazyInit(@NonNull String moduleName) {
 
     }
 
@@ -68,7 +68,7 @@ public class RootUriHandler extends ChainedHandler {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public void startUri(@NonNull UriRequest request) {
+    public void startUri(@NonNull String moduleName, @NonNull UriRequest request) {
         if (request == null) {
 
             String msg = "UriRequest为空";
@@ -97,7 +97,7 @@ public class RootUriHandler extends ChainedHandler {
                 Debugger.i("");
                 Debugger.i("---> receive request: %s", request.toFullString());
             }
-            handle(request, new RootUriCallback(request));
+            handle(moduleName, request, new RootUriCallback(moduleName, request));
         }
     }
 
@@ -125,10 +125,12 @@ public class RootUriHandler extends ChainedHandler {
 
     protected class RootUriCallback implements UriCallback {
 
+        private final String mModuleName;
         private final UriRequest mRequest;
 
-        public RootUriCallback(UriRequest request) {
-            mRequest = request;
+        public RootUriCallback(@NonNull String moduleName, UriRequest request) {
+            this.mModuleName = moduleName;
+            this.mRequest = request;
         }
 
         @Override
@@ -139,11 +141,10 @@ public class RootUriHandler extends ChainedHandler {
         @Override
         public void onComplete(int resultCode) {
             switch (resultCode) {
-
                 case CODE_REDIRECT:
                     // 重定向，重新跳转
                     Debugger.i("<--- redirect, result code = %s", resultCode);
-                    startUri(mRequest);
+                    startUri(mModuleName, mRequest);
                     break;
 
                 case CODE_SUCCESS:

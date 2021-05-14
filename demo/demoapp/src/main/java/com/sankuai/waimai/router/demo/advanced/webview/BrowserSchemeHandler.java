@@ -18,12 +18,12 @@ import androidx.annotation.NonNull;
 public class BrowserSchemeHandler extends UriHandler {
 
     @Override
-    protected boolean shouldHandle(@NonNull UriRequest request) {
+    protected boolean shouldHandle(@NonNull String moduleName, @NonNull UriRequest request) {
         return isHttpOrHttps(getUrl(request));
     }
 
     @Override
-    protected void handleInternal(@NonNull UriRequest request, @NonNull UriCallback callback) {
+    protected void handleInternal(@NonNull String moduleName, @NonNull UriRequest request, @NonNull UriCallback callback) {
         Uri url = getUrl(request);
         if (url == null) {
             callback.onComplete(UriResult.CODE_ERROR);

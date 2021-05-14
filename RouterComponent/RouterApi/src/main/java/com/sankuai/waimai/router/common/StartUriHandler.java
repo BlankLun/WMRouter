@@ -26,12 +26,12 @@ public class StartUriHandler extends UriHandler {
             "com.sankuai.waimai.router.common.try_start_uri";
 
     @Override
-    protected boolean shouldHandle(@NonNull UriRequest request) {
+    protected boolean shouldHandle(@NonNull String moduleName, @NonNull UriRequest request) {
         return request.getBooleanField(FIELD_TRY_START_URI, true);
     }
 
     @Override
-    protected void handleInternal(@NonNull UriRequest request, @NonNull UriCallback callback) {
+    protected void handleInternal(@NonNull String moduleName, @NonNull UriRequest request, @NonNull UriCallback callback) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(request.getUri());
         UriSourceTools.setIntentSource(intent, request);

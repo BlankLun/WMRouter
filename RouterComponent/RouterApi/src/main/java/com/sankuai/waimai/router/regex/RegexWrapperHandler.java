@@ -30,7 +30,7 @@ public class RegexWrapperHandler extends WrapperHandler {
     }
 
     @Override
-    protected boolean shouldHandle(@NonNull UriRequest request) {
+    protected boolean shouldHandle(@NonNull String moduleName, @NonNull UriRequest request) {
         return mPattern.matcher(request.getUri().toString()).matches();
     }
 

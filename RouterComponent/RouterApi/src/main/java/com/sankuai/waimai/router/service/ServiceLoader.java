@@ -6,6 +6,7 @@ import com.sankuai.waimai.router.annotation.RouterProvider;
 import com.sankuai.waimai.router.components.RouterComponents;
 import com.sankuai.waimai.router.core.Debugger;
 import com.sankuai.waimai.router.interfaces.Const;
+import com.sankuai.waimai.router.utils.CommonUtils;
 import com.sankuai.waimai.router.utils.LazyInitHelper;
 import com.sankuai.waimai.router.utils.SingletonPool;
 
@@ -28,14 +29,23 @@ import androidx.annotation.Nullable;
  */
 public class ServiceLoader<I> {
 
-    private static final Map<Class, ServiceLoader> SERVICES = new HashMap<>();
+    private static final Map<String, Map<Class, ServiceLoader>> SERVICES = new HashMap<>();
 
-    private static final LazyInitHelper sInitHelper = new LazyInitHelper("ServiceLoader") {
+    private static final Map<String, LazyInitHelper> sInitHelpers = new HashMap<>();
+
+    private static class ServiceLoaderLazyInitHelper extends LazyInitHelper {
+        private final String mModuleName;
+
+        public ServiceLoaderLazyInitHelper(@NonNull String moduleName) {
+            super("ServiceLoader:" + moduleName);
+            this.mModuleName = moduleName;
+        }
+
         @Override
         protected void doInit() {
             try {
                 // 反射调用Init类，避免引用的类过多，导致main dex capacity exceeded问题
-                Class.forName(Const.SERVICE_LOADER_INIT_PREFIX)
+                Class.forName(Const.SERVICE_LOADER_INIT_PREFIX + mModuleName)
                         .getMethod(Const.INIT_METHOD)
                         .invoke(null);
                 Debugger.i("[ServiceLoader] init class invoked");
@@ -43,13 +53,28 @@ public class ServiceLoader<I> {
                 Debugger.fatal(e);
             }
         }
-    };
+    }
+
+    @NonNull
+    private static LazyInitHelper getLazyInitHelper(@NonNull String moduleName) {
+        LazyInitHelper lazyInitHelper = sInitHelpers.get(moduleName);
+        if (lazyInitHelper == null) {
+            synchronized (sInitHelpers) {
+                lazyInitHelper = sInitHelpers.get(moduleName);
+                if (lazyInitHelper == null) {
+                    lazyInitHelper = new ServiceLoaderLazyInitHelper(CommonUtils.capitalize(moduleName));
+                    sInitHelpers.put(moduleName, lazyInitHelper);
+                }
+            }
+        }
+        return lazyInitHelper;
+    }
 
     /**
      * @see LazyInitHelper#lazyInit()
      */
-    public static void lazyInit() {
-        sInitHelper.lazyInit();
+    public static void lazyInit(@NonNull String moduleName) {
+        getLazyInitHelper(moduleName).lazyInit();
     }
 
     /**
@@ -58,11 +83,13 @@ public class ServiceLoader<I> {
      * @param interfaceClass 接口类
      * @param implementClass 实现类
      */
-    public static void put(Class interfaceClass, String key, Class implementClass, boolean singleton) {
-        ServiceLoader loader = SERVICES.get(interfaceClass);
+    public static void put(@NonNull String moduleName, Class interfaceClass, String key, Class implementClass, boolean singleton) {
+        Map<Class, ServiceLoader> serviceLoaderMap = getServiceLoaderMap(moduleName);
+
+        ServiceLoader loader = serviceLoaderMap.get(interfaceClass);
         if (loader == null) {
             loader = new ServiceLoader(interfaceClass);
-            SERVICES.put(interfaceClass, loader);
+            serviceLoaderMap.put(interfaceClass, loader);
         }
         loader.putImpl(key, implementClass, singleton);
     }
@@ -71,23 +98,38 @@ public class ServiceLoader<I> {
      * 根据接口获取 {@link ServiceLoader}
      */
     @SuppressWarnings("unchecked")
-    public static <T> ServiceLoader<T> load(Class<T> interfaceClass) {
-        sInitHelper.ensureInit();
+    public static <T> ServiceLoader<T> load(@NonNull String moduleName, Class<T> interfaceClass) {
+        getLazyInitHelper(moduleName).ensureInit();
         if (interfaceClass == null) {
             Debugger.fatal(new NullPointerException("ServiceLoader.load的class参数不应为空"));
             return EmptyServiceLoader.INSTANCE;
         }
-        ServiceLoader service = SERVICES.get(interfaceClass);
+        Map<Class, ServiceLoader> serviceLoaderMap = getServiceLoaderMap(moduleName);
+        ServiceLoader service = serviceLoaderMap.get(interfaceClass);
         if (service == null) {
-            synchronized (SERVICES) {
-                service = SERVICES.get(interfaceClass);
+            synchronized (serviceLoaderMap) {
+                service = serviceLoaderMap.get(interfaceClass);
                 if (service == null) {
                     service = new ServiceLoader(interfaceClass);
-                    SERVICES.put(interfaceClass, service);
+                    serviceLoaderMap.put(interfaceClass, service);
                 }
             }
         }
         return service;
+    }
+
+    private static Map<Class, ServiceLoader> getServiceLoaderMap(@NonNull String moduleName) {
+        Map<Class, ServiceLoader> serviceLoaderMap = SERVICES.get(moduleName);
+        if (serviceLoaderMap == null) {
+            synchronized (SERVICES) {
+                serviceLoaderMap = SERVICES.get(moduleName);
+                if (serviceLoaderMap == null) {
+                    serviceLoaderMap = new HashMap<>();
+                    SERVICES.put(moduleName, serviceLoaderMap);
+                }
+            }
+        }
+        return serviceLoaderMap;
     }
 
     /**

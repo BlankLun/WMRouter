@@ -19,10 +19,10 @@ import androidx.annotation.Nullable;
 
 /**
  * URI跳转，通过注解 {@link RouterUri} 配置，可处理多个Scheme+Host。
- *
+ * <p>
  * 接收到 {@link UriRequest} 时， {@link UriAnnotationHandler} 根据scheme+host产生的key，
  * 分发给对应的 {@link PathHandler}，{@link PathHandler} 再根据path分发给每个子节点。
- *
+ * <p>
  * Created by jzj on 2018/3/23.
  */
 public class UriAnnotationHandler extends UriHandler {
@@ -51,16 +51,40 @@ public class UriAnnotationHandler extends UriHandler {
      */
     private final String mDefaultHost;
 
-    private final LazyInitHelper mInitHelper = new LazyInitHelper("UriAnnotationHandler") {
+    private final Map<String, LazyInitHelper> sInitHelpers = new HashMap<>();
+
+    private class UriAnnotationLazyInitHelper extends LazyInitHelper {
+        private final String mModuleName;
+
+        public UriAnnotationLazyInitHelper(@NonNull String moduleName) {
+            super("UriAnnotationHandler:" + moduleName);
+            this.mModuleName = moduleName;
+        }
+
         @Override
         protected void doInit() {
-            initAnnotationConfig();
+            initAnnotationConfig(mModuleName);
         }
-    };
+    }
+
+    @NonNull
+    private LazyInitHelper getLazyInitHelper(@NonNull String moduleName) {
+        LazyInitHelper lazyInitHelper = sInitHelpers.get(moduleName);
+        if (lazyInitHelper == null) {
+            synchronized (sInitHelpers) {
+                lazyInitHelper = sInitHelpers.get(moduleName);
+                if (lazyInitHelper == null) {
+                    lazyInitHelper = new UriAnnotationLazyInitHelper(moduleName);
+                    sInitHelpers.put(moduleName, lazyInitHelper);
+                }
+            }
+        }
+        return lazyInitHelper;
+    }
 
     /**
      * @param defaultScheme {@link RouterUri} 没有指定scheme时，则使用这里设置的defaultScheme
-     * @param defaultHost   {@link RouterUri} 没有指定host时，则使用这里设置的defaultHost
+     * @param defaultHost {@link RouterUri} 没有指定host时，则使用这里设置的defaultHost
      */
     public UriAnnotationHandler(@Nullable String defaultScheme, @Nullable String defaultHost) {
         mDefaultScheme = RouterUtils.toNonNullString(defaultScheme);
@@ -70,12 +94,12 @@ public class UriAnnotationHandler extends UriHandler {
     /**
      * @see LazyInitHelper#lazyInit()
      */
-    public void lazyInit() {
-        mInitHelper.lazyInit();
+    public void lazyInit(@NonNull String moduleName) {
+        getLazyInitHelper(moduleName).lazyInit();
     }
 
-    protected void initAnnotationConfig() {
-        RouterComponents.loadAnnotation(this, IUriAnnotationInit.class);
+    protected void initAnnotationConfig(@NonNull String moduleName) {
+        RouterComponents.loadAnnotation(moduleName, this, IUriAnnotationInit.class);
     }
 
     public PathHandler getPathHandler(String scheme, String host) {
@@ -102,7 +126,7 @@ public class UriAnnotationHandler extends UriHandler {
     }
 
     public void register(String scheme, String host, String path,
-                         Object handler, boolean exported, UriInterceptor... interceptors) {
+            Object handler, boolean exported, UriInterceptor... interceptors) {
         // 没配的scheme和host使用默认值
         if (TextUtils.isEmpty(scheme)) {
             scheme = mDefaultScheme;
@@ -136,21 +160,22 @@ public class UriAnnotationHandler extends UriHandler {
     }
 
     @Override
-    public void handle(@NonNull UriRequest request, @NonNull UriCallback callback) {
-        mInitHelper.ensureInit();
-        super.handle(request, callback);
+    public void handle(@NonNull String moduleName, @NonNull UriRequest request, @NonNull UriCallback callback) {
+        getLazyInitHelper(moduleName).ensureInit();
+        super.handle(moduleName, request, callback);
     }
 
     @Override
-    protected boolean shouldHandle(@NonNull UriRequest request) {
+    protected boolean shouldHandle(@NonNull String moduleName, @NonNull UriRequest request) {
+        getLazyInitHelper(moduleName).ensureInit();
         return getChild(request) != null;
     }
 
     @Override
-    protected void handleInternal(@NonNull UriRequest request, @NonNull UriCallback callback) {
+    protected void handleInternal(@NonNull String moduleName, @NonNull UriRequest request, @NonNull UriCallback callback) {
         PathHandler pathHandler = getChild(request);
         if (pathHandler != null) {
-            pathHandler.handle(request, callback);
+            pathHandler.handle(moduleName, request, callback);
         } else {
             // 没找到的继续分发
             callback.onNext();

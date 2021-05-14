@@ -1,6 +1,7 @@
 package com.sankuai.waimai.router.compiler;
 
 import com.sankuai.waimai.router.interfaces.Const;
+import com.sankuai.waimai.router.utils.CommonUtils;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
@@ -188,10 +189,10 @@ public abstract class BaseProcessor extends AbstractProcessor {
      * }
      * </pre>
      *
-     * @param code             方法中的代码
-     * @param genClassName     生成class的SimpleClassName，形如 UriRouter_RouterUri_xxx
+     * @param code 方法中的代码
+     * @param genClassName 生成class的SimpleClassName，形如 UriRouter_RouterUri_xxx
      * @param handlerClassName Handler类名，例如 com.sankuai.waimai.router.common.UriAnnotationHandler
-     * @param interfaceName    接口名，例如 com.sankuai.waimai.router.common.IUriAnnotationInit
+     * @param interfaceName 接口名，例如 com.sankuai.waimai.router.common.IUriAnnotationInit
      */
     public void buildHandlerInitClass(CodeBlock code, String genClassName, String handlerClassName, String interfaceName) {
         MethodSpec methodSpec = MethodSpec.methodBuilder(Const.INIT_METHOD)
@@ -217,7 +218,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
         String className = "ServiceInit" + Const.SPLITTER + hash(genClassName);
 
         new ServiceInitClassBuilder(className)
-                .putDirectly(interfaceName, fullImplName, fullImplName, false)
+                .putDirectly(getModuleName(), interfaceName, fullImplName, fullImplName, false)
                 .build();
     }
 
@@ -248,9 +249,10 @@ public abstract class BaseProcessor extends AbstractProcessor {
             this.serviceLoaderClass = className(Const.SERVICE_LOADER_CLASS);
         }
 
-        public ServiceInitClassBuilder put(String interfaceName, String key, String implementName, boolean singleton) {
-            builder.addStatement("$T.put($T.class, $S, $T.class, $L)",
+        public ServiceInitClassBuilder put(String moduleName, String interfaceName, String key, String implementName, boolean singleton) {
+            builder.addStatement("$T.put($S, $T.class, $S, $T.class, $L)",
                     serviceLoaderClass,
+                    moduleName,
                     className(interfaceName),
                     key,
                     className(implementName),
@@ -258,10 +260,11 @@ public abstract class BaseProcessor extends AbstractProcessor {
             return this;
         }
 
-        public ServiceInitClassBuilder putDirectly(String interfaceName, String key, String implementName, boolean singleton) {
+        public ServiceInitClassBuilder putDirectly(String moduleName, String interfaceName, String key, String implementName, boolean singleton) {
             // implementName是注解生成的类，直接用$L拼接原始字符串
-            builder.addStatement("$T.put($T.class, $S, $L.class, $L)",
+            builder.addStatement("$T.put($S, $T.class, $S, $L.class, $L)",
                     serviceLoaderClass,
+                    moduleName,
                     className(interfaceName),
                     key,
                     implementName,
@@ -291,14 +294,28 @@ public abstract class BaseProcessor extends AbstractProcessor {
     }
 
     /**
+     * 获取plugin配置的编译参数，作为生成类里方法的moduleName参数
+     *
+     * @return 模块名
+     */
+    protected String getModuleName() {
+        String moduleName = getOption(Const.FEATURE_MODULE_NAME_KEY);
+        if (CommonUtils.isEmpty(moduleName)) {
+            moduleName = Const.SERVICE_LOADER_INIT_SUFFIX_APPLICATION;
+        }
+        return moduleName;
+    }
+
+    /**
      * android {
-     *      ...
-     *      defaultConfig {
-     *          ...
-     *          javaCompileOptions { annotationProcessorOptions { arguments = [key: value] } }
-     *      }
-     *      ...
+     * ...
+     * defaultConfig {
+     * ...
+     * javaCompileOptions { annotationProcessorOptions { arguments = [key: value] } }
      * }
+     * ...
+     * }
+     *
      * @param key 上述配置中的key
      * @return 上述配置中的value
      */

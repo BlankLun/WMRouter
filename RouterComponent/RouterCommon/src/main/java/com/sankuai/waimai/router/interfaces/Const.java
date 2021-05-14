@@ -16,6 +16,9 @@ public class Const {
      * 生成的ServiceLoader初始化类的前缀
      */
     public static final String SERVICE_LOADER_INIT_PREFIX = GEN_PKG + ".ServiceLoaderInit";
+    /**
+     * Application模块生成的ServiceLoader初始化类的后缀，并且作为模块名称使用
+     */
     public static final String SERVICE_LOADER_INIT_SUFFIX_APPLICATION = "Application";
 
     public static final char DOT = '.';
