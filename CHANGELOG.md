@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+## 1.3.0
+
+- 升级Android Gradle Plugin版本为4.0.1
+- support库替换为androidx
+- 通过plugin自动添加路由库依赖，使用路由的模块只需 `apply plugin: 'WMRouter'`
+- 支持app bundle开发
+
+
 ## 1.2.0
 
 - 添加FragmentTransactionUriRequest和基类，支持Activity to Fragment和Fragment to Fragment 的路由跳转

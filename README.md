@@ -58,8 +58,9 @@ WMRouter适用但不限于以下场景：
 
 6. 对App可用性要求较高的场景。一方面，可以对页面跳转失败进行埋点监控上报，及时发现线上问题；另一方面，页面跳转时可以执行判断逻辑，发现异常（例如服务端异常、客户端崩溃等）则自动打开降级后的页面，保证关键功能的正常工作，或给用户友好的提示。
 
-6. 页面A/B测试、动态配置等场景。在WMRouter提供的接口基础上进行少量开发配置，就可以实现：根据下发的A/B测试策略跳转不同的页面实现；根据不同的需要动态下发一组路由表，相同的URI跳转到不同的一组页面（实现方面可以自定义UriInterceptor，对匹配的URI返回301的UriResult使跳转重定向）。
+7. 页面A/B测试、动态配置等场景。在WMRouter提供的接口基础上进行少量开发配置，就可以实现：根据下发的A/B测试策略跳转不同的页面实现；根据不同的需要动态下发一组路由表，相同的URI跳转到不同的一组页面（实现方面可以自定义UriInterceptor，对匹配的URI返回301的UriResult使跳转重定向）。
 
+8. 支持app bundle开发，可以根据动态特性模块动态的初始化路由，通过特性模块名进行路由跳转。
 
 ## 设计与使用文档
 
@@ -75,3 +76,10 @@ WMRouter适用但不限于以下场景：
 
 关于WMRouter的发展背景和过程，可参考美团技术博客 [WMRouter：美团外卖Android开源路由框架](https://tech.meituan.com/meituan_waimai_android_open_source_routing_framework.html)。
 
+## 参考文献
+
+[Android App Bundle 简介](https://developer.android.google.cn/guide/app-bundle?hl=zh-cn)
+
+[bundletool](https://developer.android.google.cn/studio/command-line/bundletool?hl=zh-cn)
+
+[从命令行构建您的应用](https://developer.android.google.cn/studio/build/building-cmdline?hl=zh-cn)

@@ -170,48 +170,7 @@ WMRouter还提供了ServiceLoader模块。
 
 ### Gradle配置
 
-1. 在基础库中增加依赖（1.x为版本号）。
-
-    ```groovy
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        compile 'com.sankuai.waimai.router:router:1.x'
-    }
-    ```
-
-2. 在使用了注解的每个模块中配置注解生成器，包括Application和Library工程。
-
-    Java模块的配置：
-
-    ```groovy
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        annotationProcessor 'com.sankuai.waimai.router:compiler:1.x'
-    }
-    ```
-
-    Kotlin模块的配置：
-
-    ```groovy
-    apply plugin: 'com.android.library'
-    apply plugin: 'kotlin-android'
-    apply plugin: 'kotlin-android-extensions'
-    // 添加kapt插件
-    apply plugin: 'kotlin-kapt'
-
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        kapt 'com.sankuai.waimai.router:compiler:1.x'
-    }
-    ```
-
-3. 在Application工程中，配置Gradle插件。
+1. 在模块中，配置Gradle插件。
 
     根目录的`build.gradle`：
 
@@ -222,7 +181,7 @@ WMRouter还提供了ServiceLoader模块。
         }
         dependencies {
             // Android Gradle插件
-            classpath 'com.android.tools.build:gradle:3.2.1'
+            classpath 'com.android.tools.build:gradle:4.0.1'
             // 添加WMRouter插件
             classpath "com.sankuai.waimai.router:plugin:1.x"
         }
@@ -236,7 +195,7 @@ WMRouter还提供了ServiceLoader模块。
     > }
     > ```
 
-    Application模块中的`build.gradle`：
+    模块中的`build.gradle`：
 
     ```groovy
     apply plugin: 'com.android.application'
@@ -244,7 +203,52 @@ WMRouter还提供了ServiceLoader模块。
     apply plugin: 'WMRouter'
     ```
 
-4. Proguard配置。
+2. app bundle开发配置dynamic feature module
+
+    模块中的`build.gradle`：
+
+    ```groovy
+    apply plugin: 'com.android.dynamic-feature'
+    // 应用WMRouter插件
+    apply plugin: 'WMRouter'
+    ```
+
+    配置路由调用方法里的moduleName参数
+    
+    dynamic feature module下的`gradle.properties`文件里配置：
+    ```
+    FEATURE_MODULE_ID=DynamicFeature
+    ```
+    
+    > 如果不配置的话会默认使用dynamic feature module的project name，也即`settings.gradle`里配置的工程名：
+    
+    ```
+    // project name -> dynamicFeature
+    include ':dynamicFeature'
+    project(':dynamicFeature').projectDir = new File("demo/dynamicfeature")
+   
+    也即application模块里指定的 dynamicFeatures
+    dynamicFeatures = [':dynamicFeature']
+    ```
+    
+    > 默认只初始化app bundle开发中的base-master.apk里的路由，dynamic feature模块的路由初始化需要动态下载安装成功后，手动调用懒初始化方法或者直接使用路由相关的接口：
+    
+    ```
+    使用时会按需初始化（根据模块名来自动按需初始化）
+    /** Launch an activity by router. */
+    private fun routerLaunchActivity(type: Int) {
+        when (type) {
+            0 -> Router.startPageUri(MODULE_NAME_DYNAMIC_FEATURE, this@FeatureTestActivity, DemoConstant.TEST_DYNAMIC_FEATURE1)
+            1 -> Router.startUri(MODULE_NAME_DYNAMIC_FEATURE, this@FeatureTestActivity, DemoConstant.TEST_DYNAMIC_FEATURE2)
+        }
+    }
+   
+    // 也可以提前调用并初始化，使用时会等待初始化完成。
+    Router.lazyInit(moduleName)
+    ```                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                >
+
+
+3. Proguard配置。
 
     WMRouter已经内置的Proguard配置如下（详见源码`router/proguard-rules.pro`），使用AAR依赖时一般不需要重复配置。
 
