@@ -31,8 +31,6 @@ public class DemoConstant {
 
     public static final String TEL = "tel:123456789";
 
-    public static final String TEST_DYNAMIC_FEATURE1 = "/dynamic_feature1";
-
     // regex
     public static final String INNER_URL_REGEX =
             "http(s)?://(.*\\.)?(meituan|sankuai|dianping)\\.(com|info|cn).*";
@@ -60,5 +58,5 @@ public class DemoConstant {
 
     // dynamic feature demo
     public static final String DYNAMIC_FEATURE_DEMO = "/dynamic_feature_demo";
-
+    public static final String TEST_DYNAMIC_FEATURE1 = "/dynamic_feature1";
 }

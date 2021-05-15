@@ -18,6 +18,8 @@
 <resources
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
+    <string name="title_dynamicfeature">DynamicFeature</string>
+
     <string name="module_feature_kotlin">kotlin</string>
     <string name="module_feature_java">java</string>
     <string name="module_assets">assets</string>

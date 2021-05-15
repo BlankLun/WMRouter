@@ -30,6 +30,7 @@ import androidx.constraintlayout.widget.Group
 import com.google.android.play.core.splitcompat.SplitCompat
 import com.google.android.play.core.splitinstall.*
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
+import com.sankuai.waimai.router.Router
 import com.sankuai.waimai.router.annotation.RouterUri
 import com.sankuai.waimai.router.demo.BuildConfig
 import com.sankuai.waimai.router.demo.R
@@ -99,6 +100,7 @@ class FeatureTestActivity : BaseSplitActivity() {
         }
     }
 
+    private val moduleDynamicFeature by lazy { getString(R.string.title_dynamicfeature) }
     private val moduleKotlin by lazy { getString(R.string.module_feature_kotlin) }
     private val moduleJava by lazy { getString(R.string.module_feature_java) }
     private val moduleNative by lazy { getString(R.string.module_native) }
@@ -116,6 +118,7 @@ class FeatureTestActivity : BaseSplitActivity() {
     private val clickListener by lazy {
         View.OnClickListener {
             when (it.id) {
+                R.id.btn_dynamic_feature -> loadAndLaunchModule(moduleDynamicFeature)
                 R.id.btn_load_kotlin -> loadAndLaunchModule(moduleKotlin)
                 R.id.btn_load_java -> loadAndLaunchModule(moduleJava)
                 R.id.btn_load_assets -> loadAndLaunchModule(moduleAssets)
@@ -180,6 +183,7 @@ class FeatureTestActivity : BaseSplitActivity() {
      * @param name The name of the feature module to load.
      */
     private fun loadAndLaunchModule(name: String) {
+        routerLaunchActivity(1)
         updateProgressMessage(getString(R.string.loading_module, name))
         // Skip loading if the module already is installed. Perform success action directly.
         if (manager.installedModules.contains(name)) {
@@ -297,6 +301,7 @@ class FeatureTestActivity : BaseSplitActivity() {
     private fun onSuccessfulLoad(moduleName: String, launch: Boolean) {
         if (launch) {
             when (moduleName) {
+                moduleDynamicFeature -> routerLaunchActivity(1)
                 moduleKotlin -> launchActivity(KOTLIN_SAMPLE_CLASSNAME)
                 moduleJava -> launchActivity(JAVA_SAMPLE_CLASSNAME)
                 moduleInitial -> launchActivity(INITIAL_INSTALL_CLASSNAME)
@@ -313,6 +318,13 @@ class FeatureTestActivity : BaseSplitActivity() {
     private fun onSuccessfulLanguageLoad(lang: String) {
         LanguageHelper.language = lang
         recreate()
+    }
+
+    /** Launch an activity by router. */
+    private fun routerLaunchActivity(type: Int) {
+        when(type) {
+            1 -> Router.startPageUri("dynamicFeature", this@FeatureTestActivity, DemoConstant.TEST_DYNAMIC_FEATURE1)
+        }
     }
 
     /** Launch an activity by its class name. */
@@ -342,6 +354,7 @@ class FeatureTestActivity : BaseSplitActivity() {
 
     /** Set all click listeners required for the buttons on the UI. */
     private fun setupClickListener() {
+        setClickListener(R.id.btn_dynamic_feature, clickListener)
         setClickListener(R.id.btn_load_kotlin, clickListener)
         setClickListener(R.id.btn_load_java, clickListener)
         setClickListener(R.id.btn_load_assets, clickListener)

@@ -21,7 +21,7 @@ android {
             keyPassword 'testkey'
         }
     }
-    dynamicFeatures = [':dynamicfeature']
+    dynamicFeatures = [':dynamicFeature']
     buildTypes {
         debug {
             minifyEnabled false

@@ -1,7 +1,7 @@
 // demo
-include ':demoapp', ':demolib1', ':demolib2', ':demokotlin', ':dynamicfeature'
+include ':demoapp', ':demolib1', ':demolib2', ':demokotlin', ':dynamicFeature'
 project(':demoapp').projectDir = new File("demo/demoapp")
 project(':demolib1').projectDir = new File("demo/demolib1")
 project(':demolib2').projectDir = new File("demo/demolib2")
 project(':demokotlin').projectDir = new File("demo/demokotlin")
-project(':dynamicfeature').projectDir = new File("demo/dynamicfeature")
+project(':dynamicFeature').projectDir = new File("demo/dynamicfeature")

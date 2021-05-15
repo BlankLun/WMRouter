@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">WMRouter</string>
-    <string name="title_dynamicfeature">DynamicFeature</string>
 
     <string name="load_feature_kotlin">Start Kotlin Feature</string>
     <string name="load_feature_java">Start Java Feature</string>
