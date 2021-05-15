@@ -198,7 +198,6 @@ WMRouter还提供了ServiceLoader模块。
     模块中的`build.gradle`：
 
     ```groovy
-    apply plugin: 'com.android.application'
     // 应用WMRouter插件
     apply plugin: 'WMRouter'
     ```
@@ -596,13 +595,21 @@ public static class ServiceImpl2 implements IService {
 #### 2.1 指定接口和Key，获取某个实现类的Class（要求注解声明时指定了Key）
 
 ```java
+// 实现类不在dynamic feature模块里
 Class<IService> clazz = Router.getServiceClass(IService.class, "key1");
+
+// dynamicFeature为IService.class实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+Class<IService> clazz = Router.getServiceClass("dynamicFeature", IService.class, "key1");
 ```
 
 #### 2.2 指定接口，获取注解声明的所有实现类的Class
 
 ```java
+// 实现类不在dynamic feature模块里
 List<Class<IService>> classes = Router.getAllServiceClasses(IService.class);
+
+// dynamicFeature为IService.class实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+List<Class<IService>> classes = Router.getAllServiceClasses("dynamicFeature", IService.class);
 ```
 
 
@@ -614,16 +621,26 @@ ServiceLoader更常见的使用场景，是获取实现类的实例而不是Clas
 
 ```java
 // 使用无参构造函数
+// 实现类不在dynamic feature模块里
 IService service = Router.getService(IService.class, "key1");
 List<IService> list = Router.getAllServices(IService.class);
+
+// dynamicFeature为IService.class实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+IService service = Router.getService("dynamicFeature", IService.class, "key1");
+List<IService> list = Router.getAllServices("dynamicFeature", IService.class);
 ```
 
 #### 3.2 Context参数构造
 
 ```java
 // 使用Context参数构造
+// 实现类不在dynamic feature模块里
 IService service = Router.getService(IService.class, "key1", context);
 List<IService> list = Router.getAllServices(IService.class, context);
+
+// dynamicFeature为IService.class实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+IService service = Router.getService("dynamicFeature", IService.class, "key1", context);
+List<IService> list = Router.getAllServices("dynamicFeature", IService.class, context);
 ```
 
 #### 3.3 自定义Factory通过反射构造
@@ -637,8 +654,14 @@ IFactory factory = new IFactory() {
         return clazz.getConstructor().newInstance();
     }
 };
+
+// 实现类不在dynamic feature模块里
 IService service = Router.getService(IService.class, "key1", factory);
 List<IService> list = Router.getAllServices(IService.class, factory);
+
+// dynamicFeature为IService.class实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+IService service = Router.getService("dynamicFeature", IService.class, "key1", factory);
+List<IService> list = Router.getAllServices("dynamicFeature", IService.class, factory);
 ```
 
 #### 3.4 使用Provider提供实例
@@ -660,8 +683,14 @@ public static class ServiceImpl implements IService {
 }
 
 // 调用时不传Factory，优先找Provider，找不到再使用无参数构造
+
+// 实现类不在dynamic feature模块里
 IService service = Router.getService(IService.class, "key");
 List<IService> list = Router.getAllServices(IService.class);
+
+// dynamicFeature为IService.class实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+IService service = Router.getService("dynamicFeature", IService.class, "key");
+List<IService> list = Router.getAllServices("dynamicFeature", IService.class);
 ```
 
 #### 3.5 singleton参数说明
@@ -690,14 +719,23 @@ public class AddMethod implements Func2<Integer, Integer, Integer> {
 方法的调用示例如下：
 
 ```java
+// 实现类不在dynamic feature模块里
 Func2<Integer, Integer, Integer> addMethod = Router.getService(Func2.class, "/add");
+Integer result = addMethod.call(1, 2);
+
+// dynamicFeature为IService.class实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+Func2<Integer, Integer, Integer> addMethod = Router.getService("dynamicFeature", Func2.class, "/add");
 Integer result = addMethod.call(1, 2);
 ```
 
 也可以直接通过`callMethod`调用，根据参数个数匹配对应的Function接口。
 
 ```java
+// 实现类不在dynamic feature模块里
 Integer result = Router.callMethod("/add", 1, 2);
+
+// dynamicFeature为IService.class实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+Integer result = Router.callMethod("dynamicFeature", "/add", 1, 2);
 ```
 
 
@@ -726,7 +764,11 @@ void initRouter(Context context) {
     new AsyncTask<Void, Void, Void>() {
         @Override
         protected Void doInBackground(Void[] objects) {
+            // 实现类不在dynamic feature模块里
             Router.lazyInit();
+
+            // dynamicFeature为IService.class实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+            Router.lazyInit("dynamicFeature");
             return null;
         }
     }.execute();
