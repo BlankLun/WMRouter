@@ -305,7 +305,7 @@ class FeatureTestActivity : BaseSplitActivity() {
     private fun onSuccessfulLoad(moduleName: String, launch: Boolean) {
         if (launch) {
             when (moduleName) {
-                moduleDynamicFeature -> routerLaunchActivity(1)
+                moduleDynamicFeature -> routerLaunchActivity(featureTestType++ % 3)
                 moduleKotlin -> launchActivity(KOTLIN_SAMPLE_CLASSNAME)
                 moduleJava -> launchActivity(JAVA_SAMPLE_CLASSNAME)
                 moduleInitial -> launchActivity(INITIAL_INSTALL_CLASSNAME)
