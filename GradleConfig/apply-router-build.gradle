@@ -1,1 +1,3 @@
-apply plugin: 'WMRouter'
+if (!Boolean.valueOf(UPLOAD_ROUTER_PLUGIN)) {
+    apply plugin: 'WMRouter'
+}

@@ -4,7 +4,11 @@ apply from: '../../GradleConfig/common-build.gradle'
 
 
 dependencies {
-    api project(':RouterCommon')
+    if (project.ext.isPublish) {
+        api "${POM_GROUP_ID}:${rootProject.project(':RouterCommon').POM_ARTIFACT_ID}:${rootProject.project(':RouterCommon').POM_VERSION_NAME}"
+    } else {
+        api project(':RouterCommon')
+    }
 }
 
 //apply from: '../gradle_mvn_push.gradle'

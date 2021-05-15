@@ -6,7 +6,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.squareup:javapoet:1.10.0'
     compileOnly files(Jvm.current().getToolsJar())
-    implementation project(':RouterCommon')
+    if (project.ext.isPublish) {
+        implementation "${POM_GROUP_ID}:${rootProject.project(':RouterCommon').POM_ARTIFACT_ID}:${rootProject.project(':RouterCommon').POM_VERSION_NAME}"
+    } else {
+        implementation project(':RouterCommon')
+    }
 }
 
 sourceCompatibility = "1.8"

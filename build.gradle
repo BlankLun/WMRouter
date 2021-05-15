@@ -1,4 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: 'GradleConfig/publish_local_config.gradle'
 
 buildscript {
     ext.versions = [
@@ -9,13 +10,16 @@ buildscript {
     ext.kotlin_version = '1.4.31'
     repositories {
         mavenLocal()
-        mavenCentral()
+        maven {
+            url uri("${rootProject.rootDir}/.repo")
+        }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
         maven { url 'https://dl.google.com/dl/android/maven2/' }
         maven { url 'https://jitpack.io' }
         maven { url 'https://maven.google.com' }
         google()
         jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$ANDROID_PLUGIN_VERSION"
@@ -24,10 +28,9 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
 
-//        classpath "com.sankuai.waimai.router:plugin:1.1.0"
-        if (!Boolean.valueOf(DEBUG_ROUTER_APT)) {
-            println("依赖jar包")
-            classpath "com.sankuai.waimai.router:plugin:$VERSION_NAME"
+        if (!Boolean.valueOf(DEBUG_ROUTER_APT) && !Boolean.valueOf(UPLOAD_ROUTER_PLUGIN)) {
+            println("依赖plugin jar包")
+            classpath "$POM_GROUP_ID:plugin:$POM_VERSION_NAME"
         }
     }
 }
@@ -35,13 +38,16 @@ buildscript {
 allprojects {
     repositories {
         mavenLocal()
-        mavenCentral()
+        maven {
+            url uri("${rootProject.rootDir}/.repo")
+        }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
         maven { url 'https://dl.google.com/dl/android/maven2/' }
         maven { url 'https://jitpack.io' }
         maven { url 'https://maven.google.com' }
         google()
         jcenter()
+        mavenCentral()
     }
 }
 

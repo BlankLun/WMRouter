@@ -1,7 +1,5 @@
 package com.sankuai.waimai.router.utils;
 
-import android.support.annotation.NonNull;
-
 import com.sankuai.waimai.router.annotation.RouterProvider;
 import com.sankuai.waimai.router.core.Debugger;
 import com.sankuai.waimai.router.service.IFactory;
@@ -11,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+
+import androidx.annotation.NonNull;
 
 @RunWith(RobolectricTestRunner.class)
 public class SingletonPoolTest {

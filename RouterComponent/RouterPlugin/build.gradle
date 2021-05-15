@@ -1,5 +1,17 @@
 apply plugin: 'groovy'
 
+repositories {
+    mavenLocal()
+    maven {
+        url uri("${rootProject.rootDir}/.repo")
+    }
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://dl.google.com/dl/android/maven2/' }
+    jcenter()
+    google()
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -7,6 +19,12 @@ dependencies {
     implementation localGroovy()
     implementation "com.android.tools.build:gradle:$ANDROID_PLUGIN_VERSION"
     implementation 'com.kronos.plugin:BasePlugin:0.2.1'
-    implementation project(':RouterCommon')
+    println "是否发布 ${project.ext.isPublish}"
+
+    if (project.ext.isPublish) {
+        implementation "${POM_GROUP_ID}:${rootProject.project(':RouterCommon').POM_ARTIFACT_ID}:${rootProject.project(':RouterCommon').POM_VERSION_NAME}"
+    } else {
+        implementation project(':RouterCommon')
+    }
 }
 //apply from: '../gradle_mvn_push.gradle'

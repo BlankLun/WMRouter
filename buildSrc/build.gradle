@@ -20,8 +20,7 @@ repositories {
 }
 project.ext.isPublish = project.hasProperty('publishLib')
 
-println "是否调试 ${isDebugPlugin}"
-
+println "是否调试 ${isDebugPlugin}，是否发布 ${project.ext.isPublish}"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -35,6 +34,8 @@ dependencies {
 }
 
 if (isDebugPlugin) {
+    println "是否调试 ${isDebugPlugin}"
+
     sourceSets {
         println "依赖 plugin 源码"
         main {

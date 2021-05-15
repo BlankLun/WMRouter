@@ -7,3 +7,5 @@
 /captures
 .externalNativeBuild
 testApks
+.repo
+gradle.properties-e

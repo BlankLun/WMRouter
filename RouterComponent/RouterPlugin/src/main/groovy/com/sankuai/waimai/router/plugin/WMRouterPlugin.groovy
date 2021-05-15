@@ -164,10 +164,10 @@ class WMRouterPlugin implements Plugin<Project> {
     }
 
     private String getPomGroup() {
-        return String.valueOf(mProject.property("GROUP"))
+        return String.valueOf(mProject.property("POM_GROUP_ID"))
     }
 
     private String getPomVersionName() {
-        return String.valueOf(mProject.property("VERSION_NAME"))
+        return String.valueOf(mProject.property("POM_VERSION_NAME"))
     }
 }
