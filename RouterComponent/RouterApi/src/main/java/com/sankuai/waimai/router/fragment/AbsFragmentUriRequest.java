@@ -29,9 +29,9 @@ public abstract class AbsFragmentUriRequest extends UriRequest {
     }
 
     @Override
-    public void start() {
+    public void start(@NonNull String moduleName) {
         putField(StartFragmentAction.START_FRAGMENT_ACTION, getStartFragmentAction());
-        super.start();
+        super.start(moduleName);
     }
 
     protected abstract StartFragmentAction getStartFragmentAction();

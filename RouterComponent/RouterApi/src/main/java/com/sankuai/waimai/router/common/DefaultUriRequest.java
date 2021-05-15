@@ -14,6 +14,7 @@ import com.sankuai.waimai.router.components.UriSourceTools;
 import com.sankuai.waimai.router.core.OnCompleteListener;
 import com.sankuai.waimai.router.core.UriHandler;
 import com.sankuai.waimai.router.core.UriRequest;
+import com.sankuai.waimai.router.interfaces.Const;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class DefaultUriRequest extends UriRequest {
     }
 
     public DefaultUriRequest(@NonNull Context context, @NonNull String uri,
-                             HashMap<String, Object> extra) {
+            HashMap<String, Object> extra) {
         super(context, uri, extra);
     }
 
@@ -257,7 +258,7 @@ public class DefaultUriRequest extends UriRequest {
      * 附加到Intent的Extra
      */
     public DefaultUriRequest putIntentParcelableArrayListExtra(String name,
-                                                               ArrayList<? extends Parcelable> value) {
+            ArrayList<? extends Parcelable> value) {
         extra().putParcelableArrayList(name, value);
         return this;
     }
@@ -282,7 +283,7 @@ public class DefaultUriRequest extends UriRequest {
      * 附加到Intent的Extra
      */
     public DefaultUriRequest putIntentCharSequenceArrayListExtra(String name,
-                                                                 ArrayList<CharSequence> value) {
+            ArrayList<CharSequence> value) {
         extra().putCharSequenceArrayList(name, value);
         return this;
     }
@@ -403,7 +404,12 @@ public class DefaultUriRequest extends UriRequest {
         return extra;
     }
 
-    public static void startFromProxyActivity(final Activity activity, OnCompleteListener listener) {
+    public static void startFromProxyActivity(Activity activity, OnCompleteListener listener) {
+        startFromProxyActivity(Const.SERVICE_LOADER_INIT_SUFFIX_APPLICATION, activity, listener);
+    }
+
+    public static void startFromProxyActivity(@NonNull String moduleName, final Activity activity,
+            OnCompleteListener listener) {
         if (activity == null) {
             return;
         }
@@ -426,6 +432,6 @@ public class DefaultUriRequest extends UriRequest {
                 // 异步监听
                 .onComplete(listener)
                 .putExtras(extras)
-                .start();
+                .start(moduleName);
     }
 }

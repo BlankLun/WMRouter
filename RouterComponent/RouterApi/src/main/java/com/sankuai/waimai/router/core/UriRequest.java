@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.sankuai.waimai.router.Router;
+import com.sankuai.waimai.router.interfaces.Const;
 import com.sankuai.waimai.router.utils.RouterUtils;
 
 import java.util.HashMap;
@@ -225,7 +226,11 @@ public class UriRequest {
     }
 
     public void start() {
-        Router.startUri(this);
+        start(Const.SERVICE_LOADER_INIT_SUFFIX_APPLICATION);
+    }
+
+    public void start(@NonNull String moduleName) {
+        Router.startUri(moduleName,this);
     }
 
     @Override
