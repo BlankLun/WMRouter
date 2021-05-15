@@ -332,10 +332,18 @@ public class UriProxyActivity extends BaseActivity {
 
 ```java
 // 直接传context和URI
+// URI跳转注解的实现类不在dynamic feature模块里
 Router.startUri(context, "/account");
 
+// dynamicFeature为URI跳转注解的实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+Router.startUri("dynamicFeature", context, "/account");
+
 // 或构造一个UriRequest
+// URI跳转注解的实现类不在dynamic feature模块里
 Router.startUri(new UriRequest(context, "/account"))
+
+// dynamicFeature为URI跳转注解的实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+Router.startUri("dynamicFeature", new UriRequest(context, "/account"))
 ```
 
 使用UriRequest的默认封装子类DefaultUriRequest，以Builder形式给本次跳转设置各种参数。
@@ -365,7 +373,11 @@ new DefaultUriRequest(context, "/account")
             }
         })
         // 这里的start实际也是调用了Router.startUri方法
+        // URI跳转注解的实现类不在dynamic feature模块里
         .start();
+        
+        // dynamicFeature为URI跳转注解的实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+        .start("dynamicFeature");
 ```
 
 
@@ -416,7 +428,11 @@ public class UserAccountActivity extends Activity {
 ```
 
 ```java
+// URI跳转注解的实现类不在dynamic feature模块里
 Router.startUri(context, "/account");
+
+// dynamicFeature为URI跳转注解的实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+Router.startUri("dynamicFeature", context, "/account");
 ```
 
 2、一个页面配置多个path。
@@ -429,8 +445,13 @@ public class TestActivity extends Activity {
 ```
 
 ```java
+// URI跳转注解的实现类不在dynamic feature模块里
 Router.startUri(context, "demo_scheme://demo_host/path1");
 Router.startUri(context, "demo_scheme://demo_host/path2");
+
+// dynamicFeature为URI跳转注解的实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+Router.startUri("dynamicFeature", context, "demo_scheme://demo_host/path1");
+Router.startUri("dynamicFeature", context, "demo_scheme://demo_host/path2");
 ```
 
 3、根据后台下发的ABTest策略，同一个链接跳转不同的Activity。其中AbsActivityHandler是WMRouter提供的用于跳转Activity的UriHandler通用基类。
@@ -452,7 +473,11 @@ public class HomeABTestHandler extends AbsActivityHandler {
 ```
 
 ```java
+// URI跳转注解的实现类不在dynamic feature模块里
 Router.startUri(context, "/home");
+
+// dynamicFeature为URI跳转注解的实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+Router.startUri("dynamicFeature", context, "/home");
 ```
 
 
@@ -486,12 +511,12 @@ public class WebViewActivity extends BaseActivity {
 public class SystemBrowserHandler extends UriHandler {
 
     @Override
-    protected boolean shouldHandle(@NonNull UriRequest request) {
+    protected boolean shouldHandle(@NonNull String moduleName, @NonNull UriRequest request) {
         return true;
     }
 
     @Override
-    protected void handleInternal(@NonNull UriRequest request, @NonNull UriCallback callback) {
+    protected void handleInternal(@NonNull String moduleName, @NonNull UriRequest request, @NonNull UriCallback callback) {
         try {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
@@ -542,14 +567,28 @@ public class AccountActivity {
 
 ```java
 // 对应RouterUri的配置
+// URI跳转注解的实现类不在dynamic feature模块里
 Router.startUri(context, "demo://demo/account");
+
+// dynamicFeature为URI跳转注解的实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+Router.startUri("dynamicFeature", context, "demo://demo/account");
 ```
 
 ```java
 // 对应RouterPage的配置
+// URI跳转注解的实现类不在dynamic feature模块里
 Router.startUri(context, PageAnnotationHandler.SCHEME_HOST + "/account");
+
+// dynamicFeature为URI跳转注解的实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+Router.startUri("dynamicFeature", context, PageAnnotationHandler.SCHEME_HOST + "/account");
+
+
 // 或直接用常量的值
+// URI跳转注解的实现类不在dynamic feature模块里
 Router.startUri(context, "wm_router://page/account");
+
+// dynamicFeature为URI跳转注解的实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+Router.startUri("dynamicFeature", context, "wm_router://page/account");
 ```
 
 
@@ -723,7 +762,7 @@ public class AddMethod implements Func2<Integer, Integer, Integer> {
 Func2<Integer, Integer, Integer> addMethod = Router.getService(Func2.class, "/add");
 Integer result = addMethod.call(1, 2);
 
-// dynamicFeature为IService.class实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+// dynamicFeature为实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
 Func2<Integer, Integer, Integer> addMethod = Router.getService("dynamicFeature", Func2.class, "/add");
 Integer result = addMethod.call(1, 2);
 ```
@@ -734,7 +773,7 @@ Integer result = addMethod.call(1, 2);
 // 实现类不在dynamic feature模块里
 Integer result = Router.callMethod("/add", 1, 2);
 
-// dynamicFeature为IService.class实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+// dynamicFeature为实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
 Integer result = Router.callMethod("dynamicFeature", "/add", 1, 2);
 ```
 
@@ -767,7 +806,7 @@ void initRouter(Context context) {
             // 实现类不在dynamic feature模块里
             Router.lazyInit();
 
-            // dynamicFeature为IService.class实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+            // dynamicFeature为实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
             Router.lazyInit("dynamicFeature");
             return null;
         }
