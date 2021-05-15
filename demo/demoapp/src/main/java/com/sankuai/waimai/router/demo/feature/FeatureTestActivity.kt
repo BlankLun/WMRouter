@@ -38,6 +38,8 @@ import com.sankuai.waimai.router.demo.app.LANG_EN
 import com.sankuai.waimai.router.demo.app.LANG_PL
 import com.sankuai.waimai.router.demo.app.LanguageHelper
 import com.sankuai.waimai.router.demo.lib2.DemoConstant
+import com.sankuai.waimai.router.service.EmptyArgsFactory
+import com.sankuai.waimai.router.service.IFactory
 import java.util.*
 
 @RouterUri(path = [DemoConstant.DYNAMIC_FEATURE_DEMO])
@@ -178,12 +180,14 @@ class FeatureTestActivity : BaseSplitActivity() {
         super.onPause()
     }
 
+    private var featureTestType = 0
+
     /**
      * Load a feature by module name.
      * @param name The name of the feature module to load.
      */
     private fun loadAndLaunchModule(name: String) {
-        routerLaunchActivity(1)
+        routerLaunchActivity(featureTestType++ % 2)
         updateProgressMessage(getString(R.string.loading_module, name))
         // Skip loading if the module already is installed. Perform success action directly.
         if (manager.installedModules.contains(name)) {
@@ -322,9 +326,35 @@ class FeatureTestActivity : BaseSplitActivity() {
 
     /** Launch an activity by router. */
     private fun routerLaunchActivity(type: Int) {
-        when(type) {
-            1 -> Router.startPageUri("dynamicFeature", this@FeatureTestActivity, DemoConstant.TEST_DYNAMIC_FEATURE1)
+        when (type) {
+            0 -> Router.startPageUri(MODULE_NAME_DYNAMIC_FEATURE, this@FeatureTestActivity, DemoConstant.TEST_DYNAMIC_FEATURE1)
+            1 -> featureServiceTest()
         }
+    }
+
+    private fun featureServiceTest() {
+        val s = StringBuilder()
+
+        // EmptyArgsFactory
+        val service1 = Router.getService(MODULE_NAME_DYNAMIC_FEATURE, IFeatureService::class.java, "/factory", EmptyArgsFactory.INSTANCE)
+        // Provider
+        val service2 = Router.getService(MODULE_NAME_DYNAMIC_FEATURE, IFeatureService::class.java, "/factory")
+        // ContextFactory
+        val service3 = Router.getService(MODULE_NAME_DYNAMIC_FEATURE, IFeatureService::class.java, "/factory", this)
+        // CustomFactory
+        val service4 = Router.getService(MODULE_NAME_DYNAMIC_FEATURE, IFeatureService::class.java, "/factory", object : IFactory {
+            @Throws(Exception::class)
+            override fun <T> create(clazz: Class<T>): T {
+                return clazz.getConstructor(String::class.java).newInstance("CreateByCustomFactory")
+            }
+        })
+        s.append("EmptyArgsFactory: ").append(service1?.name()).append('\n')
+        s.append("Provider: ").append(service2?.name()).append('\n')
+        s.append("Context: ").append(service3?.name()).append('\n')
+        s.append("CustomFactory: ").append(service4?.name()).append('\n')
+        s.append('\n')
+
+        toastAndLog(s.toString())
     }
 
     /** Launch an activity by its class name. */
@@ -407,3 +437,4 @@ private const val MAX_SDK_CLASSNAME = "$PACKAGE_NAME.MaxSdkSampleActivity"
 private const val INSTANT_SAMPLE_CLASSNAME = "$INSTANT_PACKAGE_NAME.SplitInstallInstantActivity"
 private const val CONFIRMATION_REQUEST_CODE = 1
 private const val TAG = "DynamicFeatures"
+private const val MODULE_NAME_DYNAMIC_FEATURE = "dynamicFeature"

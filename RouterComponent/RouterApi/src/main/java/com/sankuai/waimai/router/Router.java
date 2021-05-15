@@ -203,6 +203,7 @@ public class Router {
      *
      * @return 找不到或获取、构造失败，则返回null
      */
+    @Nullable
     public static <I, T extends I> I getService(Class<I> clazz) {
         return getService(Const.SERVICE_LOADER_INIT_SUFFIX_APPLICATION, clazz);
     }
@@ -214,6 +215,7 @@ public class Router {
      *
      * @return 找不到或获取、构造失败，则返回null
      */
+    @Nullable
     public static <I, T extends I> I getService(@NonNull String moduleName, Class<I> clazz) {
         final I service = ServiceLoader.load(moduleName, clazz).get(ServiceImpl.DEFAULT_IMPL_KEY);
         if (service != null) {
@@ -231,6 +233,7 @@ public class Router {
      *
      * @return 找不到或获取、构造失败，则返回null
      */
+    @Nullable
     public static <I, T extends I> I getService(Class<I> clazz, Context context) {
         return getService(Const.SERVICE_LOADER_INIT_SUFFIX_APPLICATION, clazz, context);
     }
@@ -242,6 +245,7 @@ public class Router {
      *
      * @return 找不到或获取、构造失败，则返回null
      */
+    @Nullable
     public static <I, T extends I> I getService(@NonNull String moduleName, Class<I> clazz, Context context) {
         final I service = ServiceLoader.load(moduleName, clazz).get(ServiceImpl.DEFAULT_IMPL_KEY, context);
         if (service != null) {
@@ -259,6 +263,7 @@ public class Router {
      *
      * @return 找不到或获取、构造失败，则返回null
      */
+    @Nullable
     public static <I, T extends I> I getService(Class<I> clazz, IFactory factory) {
         return getService(Const.SERVICE_LOADER_INIT_SUFFIX_APPLICATION, clazz, factory);
     }
@@ -270,6 +275,7 @@ public class Router {
      *
      * @return 找不到或获取、构造失败，则返回null
      */
+    @Nullable
     public static <I, T extends I> I getService(@NonNull String moduleName, Class<I> clazz, IFactory factory) {
         final I service = ServiceLoader.load(moduleName, clazz).get(ServiceImpl.DEFAULT_IMPL_KEY, factory);
         if (service != null) {
@@ -285,6 +291,7 @@ public class Router {
      *
      * @return 找不到或获取、构造失败，则返回null
      */
+    @Nullable
     public static <I, T extends I> T getService(Class<I> clazz, String key) {
         return getService(Const.SERVICE_LOADER_INIT_SUFFIX_APPLICATION, clazz, key);
     }
@@ -294,6 +301,7 @@ public class Router {
      *
      * @return 找不到或获取、构造失败，则返回null
      */
+    @Nullable
     public static <I, T extends I> T getService(@NonNull String moduleName, Class<I> clazz, String key) {
         return ServiceLoader.load(moduleName, clazz).get(key);
     }
@@ -303,6 +311,7 @@ public class Router {
      *
      * @return 找不到或获取、构造失败，则返回null
      */
+    @Nullable
     public static <I, T extends I> T getService(Class<I> clazz, String key, Context context) {
         return getService(Const.SERVICE_LOADER_INIT_SUFFIX_APPLICATION, clazz, key, context);
     }
@@ -312,6 +321,7 @@ public class Router {
      *
      * @return 找不到或获取、构造失败，则返回null
      */
+    @Nullable
     public static <I, T extends I> T getService(@NonNull String moduleName, Class<I> clazz, String key, Context context) {
         return ServiceLoader.load(moduleName, clazz).get(key, context);
     }
@@ -322,6 +332,7 @@ public class Router {
      * @param factory 用于从Class构造实例
      * @return 找不到或获取、构造失败，则返回null
      */
+    @Nullable
     public static <I, T extends I> T getService(Class<I> clazz, String key, IFactory factory) {
         return getService(Const.SERVICE_LOADER_INIT_SUFFIX_APPLICATION, clazz, key, factory);
     }
@@ -332,6 +343,7 @@ public class Router {
      * @param factory 用于从Class构造实例
      * @return 找不到或获取、构造失败，则返回null
      */
+    @Nullable
     public static <I, T extends I> T getService(@NonNull String moduleName, Class<I> clazz, String key, IFactory factory) {
         return ServiceLoader.load(moduleName, clazz).get(key, factory);
     }
