@@ -901,7 +901,12 @@ Router.init(new CustomRootUriHandler());
 // 启动Uri
 CustomUriRequest request = new CustomUriRequest(mContext, url)
     .setCustomProperties("xxx");
+
+// URI跳转注解的实现类不在dynamic feature模块里
 Router.startUri(request);
+
+// dynamicFeature为URI跳转注解的实现类所在的模块名（只有bundle开发里的dynamic feature才需要）
+Router.startUri("dynamicFeature", request);
 ```
 
 
@@ -917,13 +922,20 @@ Router.startUri(request);
 
 ### 1、检查注解生成器是否配置
 
+1.3.0之前的版本：
+
 每个使用了注解的模块都需要配置注解生成器（annotationProcessor或kapt），包括Application和Library工程。
 
 
-### 2、检查主工程Gradle插件是否配置
+### 2、检查工程Gradle插件是否配置
+
+* 1.3.0之前的版本：只需检查**主工程**（application）Gradle插件是否配置
+* 1.3.x及之后的版本：检查使用路由的**每个模块**Gradle插件是否配置
 
 
 ### 3、检查版本号
+
+1.3.0之前的版本：
 
 检查各个工程的注解生成器、Gradle插件、依赖的router模块版本是否一致。由于插件方案变动，各个模块版本应保持一致，配置了注解生成器的AAR建议重新打包，避免兼容问题。
 
@@ -942,13 +954,23 @@ Router.startUri(request);
 
 ![](images/debug-2.png)
 
-#### 1.1.x及以上版本
+#### 1.1.x及1.2.x版本
 
 - 对于源码依赖的Library模块，检查`build/generated/source/apt`目录中是否生成了Java初始化类，如图所示。
 - 对于依赖的AAR模块，可以在Android Studio的External Libraries中查看AAR里是否包含Java初始化类。
 
 ![](images/debug-check-init-class.png)
 
+#### 1.3.x及以上版本
+
+- 对于源码依赖的Library模块，检查`build/generated/source/apt`或者`build/generated/source/kapt`目录中是否生成了Java初始化类，如图所示。
+- 对于依赖的AAR模块，可以在Android Studio的External Libraries中查看AAR里是否包含Java初始化类。
+
+![](images/debug-check-no-feature-init-class.png)
+
+动态特性模块：
+
+![](images/debug-check-dynamic-feature-init-class.png)
 
 ### 6、检查Gradle插件是否正常工作
 
@@ -958,12 +980,17 @@ assets是否正确生成。Gradle插件会将注解生成器生成的资源文�
 
 ![](images/debug-3.png)
 
-#### 1.1.x及以上版本
+#### 1.1.x及1.2.x版本
 
 查看Gradle编译输出的Log，是否正确找到了注解生成器生成的初始化类；反编译APK查看`com.sankuai.waimai.router.generated.ServiceLoaderInit`类中的内容是否正常。
 
 ![](images/debug-check-plugin-find-service.png)
 
+#### 1.3.x及以上版本
+
+查看Gradle编译输出的Log，是否正确找到了注解生成器生成的初始化类；反编译APK查看`com.sankuai.waimai.router.generated.ServiceLoaderInitXXX`类中的内容是否正常。
+
+![](images/debug-check-plugin-find-service-loader-init.png)
 
 ### 7、查看运行时Log
 
