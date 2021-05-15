@@ -187,7 +187,7 @@ class FeatureTestActivity : BaseSplitActivity() {
      * @param name The name of the feature module to load.
      */
     private fun loadAndLaunchModule(name: String) {
-        routerLaunchActivity(featureTestType++ % 2)
+        routerLaunchActivity(featureTestType++ % 3)
         updateProgressMessage(getString(R.string.loading_module, name))
         // Skip loading if the module already is installed. Perform success action directly.
         if (manager.installedModules.contains(name)) {
@@ -328,7 +328,8 @@ class FeatureTestActivity : BaseSplitActivity() {
     private fun routerLaunchActivity(type: Int) {
         when (type) {
             0 -> Router.startPageUri(MODULE_NAME_DYNAMIC_FEATURE, this@FeatureTestActivity, DemoConstant.TEST_DYNAMIC_FEATURE1)
-            1 -> featureServiceTest()
+            1 -> Router.startUri(MODULE_NAME_DYNAMIC_FEATURE, this@FeatureTestActivity, DemoConstant.TEST_DYNAMIC_FEATURE2)
+            2 -> featureServiceTest()
         }
     }
 
