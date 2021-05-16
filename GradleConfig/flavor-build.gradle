@@ -1,0 +1,11 @@
+android {
+    flavorDimensions "buildtype"
+    productFlavors {
+        bundle {
+            dimension "buildtype"
+        }
+        nonBundle {
+            dimension "buildtype"
+        }
+    }
+}

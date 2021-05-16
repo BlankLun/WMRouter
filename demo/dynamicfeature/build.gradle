@@ -1,18 +1,24 @@
-plugins {
-    id 'com.android.dynamic-feature'
+if (Boolean.valueOf(IS_BUNDLE_MODULE)) {
+    apply plugin: "com.android.dynamic-feature"
+} else {
+    apply plugin: "com.android.library"
 }
 
 apply from: '../../GradleConfig/common-build.gradle'
 apply from: '../../GradleConfig/apply-router-build.gradle'
+apply from: '../../GradleConfig/flavor-build.gradle'
 
 android {
     defaultConfig {
-        applicationId "com.lkl.dynamicfeature"
+        if (Boolean.valueOf(IS_BUNDLE_MODULE)) {
+            applicationId "com.lkl.dynamicfeature"
+        }
     }
 }
 
 dependencies {
-    implementation project(":demoapp")
+    bundleImplementation project(":demoapp")
+    implementation project(":demolib2")
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'com.google.android.material:material:1.2.1'
 }

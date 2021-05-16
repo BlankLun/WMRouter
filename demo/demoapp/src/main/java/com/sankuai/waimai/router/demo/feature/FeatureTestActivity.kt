@@ -38,6 +38,8 @@ import com.sankuai.waimai.router.demo.app.LANG_EN
 import com.sankuai.waimai.router.demo.app.LANG_PL
 import com.sankuai.waimai.router.demo.app.LanguageHelper
 import com.sankuai.waimai.router.demo.lib2.DemoConstant
+import com.sankuai.waimai.router.demo.lib2.advanced.services.IFeatureService
+import com.sankuai.waimai.router.interfaces.Const
 import com.sankuai.waimai.router.service.EmptyArgsFactory
 import com.sankuai.waimai.router.service.IFactory
 import java.util.*
@@ -438,4 +440,4 @@ private const val MAX_SDK_CLASSNAME = "$PACKAGE_NAME.MaxSdkSampleActivity"
 private const val INSTANT_SAMPLE_CLASSNAME = "$INSTANT_PACKAGE_NAME.SplitInstallInstantActivity"
 private const val CONFIRMATION_REQUEST_CODE = 1
 private const val TAG = "DynamicFeatures"
-private const val MODULE_NAME_DYNAMIC_FEATURE = "dynamicFeature"
+private val MODULE_NAME_DYNAMIC_FEATURE by lazy { if ("bundle" == BuildConfig.FLAVOR) "dynamicFeature" else Const.SERVICE_LOADER_INIT_SUFFIX_APPLICATION }

@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 apply from: '../../GradleConfig/common-build.gradle'
 apply from: '../../GradleConfig/apply-router-build.gradle'
+apply from: '../../GradleConfig/flavor-build.gradle'
 
 //WMRouter {
 //    enableDebug = true // 调试开关
@@ -21,7 +22,20 @@ android {
             keyPassword 'testkey'
         }
     }
-    dynamicFeatures = [':dynamicFeature']
+
+    if (Boolean.valueOf(IS_BUNDLE_MODULE)) {
+        dynamicFeatures = [':dynamicFeature']
+    }
+
+    productFlavors {
+        bundle {
+            buildConfigField "Boolean", "isBundle", "true"
+        }
+        nonBundle {
+            buildConfigField "Boolean", "isBundle", "false"
+        }
+    }
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -41,4 +55,6 @@ dependencies {
 
     api "com.google.android.play:core:${versions.playcore}"
     api 'androidx.constraintlayout:constraintlayout:2.0.1'
+
+    nonBundleImplementation project(path: ":dynamicFeature")
 }

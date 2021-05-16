@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.sankuai.waimai.router.annotation.RouterProvider;
 import com.sankuai.waimai.router.annotation.RouterService;
-import com.sankuai.waimai.router.demo.feature.IFeatureService;
+import com.sankuai.waimai.router.demo.lib2.advanced.services.IFeatureService;
 
 @RouterService(interfaces = IFeatureService.class, key = "/factory")
 public class IFeatureServiceImpl implements IFeatureService {
