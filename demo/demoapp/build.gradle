@@ -29,10 +29,10 @@ android {
 
     productFlavors {
         bundle {
-            buildConfigField "Boolean", "isBundle", "true"
+            buildConfigField "boolean", "isBundle", "true"
         }
         nonBundle {
-            buildConfigField "Boolean", "isBundle", "false"
+            buildConfigField "boolean", "isBundle", "false"
         }
     }
 

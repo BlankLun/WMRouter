@@ -44,11 +44,12 @@ public class ServiceLoader<I> {
         @Override
         protected void doInit() {
             try {
+                String className = Const.SERVICE_LOADER_INIT_PREFIX + mModuleName;
                 // 反射调用Init类，避免引用的类过多，导致main dex capacity exceeded问题
-                Class.forName(Const.SERVICE_LOADER_INIT_PREFIX + mModuleName)
+                Class.forName(className)
                         .getMethod(Const.INIT_METHOD)
                         .invoke(null);
-                Debugger.i("[ServiceLoader] init class invoked");
+                Debugger.i("[ServiceLoader] init class(" + className + ") invoked");
             } catch (Exception e) {
                 Debugger.fatal(e);
             }

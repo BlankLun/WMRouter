@@ -440,4 +440,4 @@ private const val MAX_SDK_CLASSNAME = "$PACKAGE_NAME.MaxSdkSampleActivity"
 private const val INSTANT_SAMPLE_CLASSNAME = "$INSTANT_PACKAGE_NAME.SplitInstallInstantActivity"
 private const val CONFIRMATION_REQUEST_CODE = 1
 private const val TAG = "DynamicFeatures"
-private val MODULE_NAME_DYNAMIC_FEATURE by lazy { if ("bundle" == BuildConfig.FLAVOR) "dynamicFeature" else Const.SERVICE_LOADER_INIT_SUFFIX_APPLICATION }
+private val MODULE_NAME_DYNAMIC_FEATURE by lazy { if (BuildConfig.isBundle) "dynamicFeature" else Const.SERVICE_LOADER_INIT_SUFFIX_APPLICATION }
