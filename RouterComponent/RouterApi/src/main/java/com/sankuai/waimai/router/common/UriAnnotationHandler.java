@@ -51,7 +51,7 @@ public class UriAnnotationHandler extends UriHandler {
      */
     private final String mDefaultHost;
 
-    private final Map<String, LazyInitHelper> sInitHelpers = new HashMap<>();
+    private final Map<String, LazyInitHelper> mInitHelpers = new HashMap<>();
 
     private class UriAnnotationLazyInitHelper extends LazyInitHelper {
         private final String mModuleName;
@@ -69,13 +69,13 @@ public class UriAnnotationHandler extends UriHandler {
 
     @NonNull
     private LazyInitHelper getLazyInitHelper(@NonNull String moduleName) {
-        LazyInitHelper lazyInitHelper = sInitHelpers.get(moduleName);
+        LazyInitHelper lazyInitHelper = mInitHelpers.get(moduleName);
         if (lazyInitHelper == null) {
-            synchronized (sInitHelpers) {
-                lazyInitHelper = sInitHelpers.get(moduleName);
+            synchronized (mInitHelpers) {
+                lazyInitHelper = mInitHelpers.get(moduleName);
                 if (lazyInitHelper == null) {
                     lazyInitHelper = new UriAnnotationLazyInitHelper(moduleName);
-                    sInitHelpers.put(moduleName, lazyInitHelper);
+                    mInitHelpers.put(moduleName, lazyInitHelper);
                 }
             }
         }

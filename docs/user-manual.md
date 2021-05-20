@@ -252,8 +252,8 @@ WMRouter还提供了ServiceLoader模块。
     WMRouter已经内置的Proguard配置如下（详见源码`router/proguard-rules.pro`），使用AAR依赖时一般不需要重复配置。
 
     ```bash
-    # 保留ServiceLoaderInit类，需要反射调用
-    -keep class com.sankuai.waimai.router.generated.ServiceLoaderInit { *; }
+    # 保留ServiceLoaderInitXXX类，需要反射调用
+    -keep class com.sankuai.waimai.router.generated.ServiceLoaderInit* { *; }
 
     # 避免注解在shrink阶段就被移除，导致obfuscate阶段注解失效、实现类仍然被混淆
     -keep @interface com.sankuai.waimai.router.annotation.RouterService

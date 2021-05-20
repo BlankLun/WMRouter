@@ -174,7 +174,7 @@ public class WMRouterTransform extends Transform {
      * <pre>
      * package com.sankuai.waimai.router.generated;
      *
-     * public class ServiceLoaderInit {
+     * public class ServiceLoaderInitXXX {
      *
      *     public static void init() {
      *         ServiceInit_xxx1.init();

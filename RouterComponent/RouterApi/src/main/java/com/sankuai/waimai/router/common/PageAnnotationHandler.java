@@ -33,7 +33,7 @@ public class PageAnnotationHandler extends PathHandler {
         return intent != null && SCHEME_HOST.equals(RouterUtils.schemeHost(intent.getData()));
     }
 
-    private final Map<String, LazyInitHelper> sInitHelpers = new HashMap<>();
+    private final Map<String, LazyInitHelper> mInitHelpers = new HashMap<>();
 
     private class PageAnnotationLazyInitHelper extends LazyInitHelper {
         private final String mModuleName;
@@ -51,13 +51,13 @@ public class PageAnnotationHandler extends PathHandler {
 
     @NonNull
     private LazyInitHelper getLazyInitHelper(@NonNull String moduleName) {
-        LazyInitHelper lazyInitHelper = sInitHelpers.get(moduleName);
+        LazyInitHelper lazyInitHelper = mInitHelpers.get(moduleName);
         if (lazyInitHelper == null) {
-            synchronized (sInitHelpers) {
-                lazyInitHelper = sInitHelpers.get(moduleName);
+            synchronized (mInitHelpers) {
+                lazyInitHelper = mInitHelpers.get(moduleName);
                 if (lazyInitHelper == null) {
                     lazyInitHelper = new PageAnnotationLazyInitHelper(moduleName);
-                    sInitHelpers.put(moduleName, lazyInitHelper);
+                    mInitHelpers.put(moduleName, lazyInitHelper);
                 }
             }
         }

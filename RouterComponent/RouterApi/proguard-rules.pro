@@ -20,8 +20,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-# 保留ServiceLoaderInit类，由反射调用
--keep class com.sankuai.waimai.router.generated.ServiceLoaderInit { *; }
+# 保留ServiceLoaderInitXXX类，由反射调用
+-keep class com.sankuai.waimai.router.generated.ServiceLoaderInit* { *; }
 
 # 避免注解在shrink阶段就被移除，导致obfuscate阶段注解失效、实现类仍然被混淆
 -keep @interface com.sankuai.waimai.router.annotation.RouterService

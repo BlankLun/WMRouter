@@ -28,7 +28,7 @@ import androidx.annotation.NonNull;
  */
 
 public class RegexAnnotationHandler extends ChainedHandler {
-    private final Map<String, LazyInitHelper> sInitHelpers = new HashMap<>();
+    private final Map<String, LazyInitHelper> mInitHelpers = new HashMap<>();
 
     private class RegexAnnotationLazyInitHelper extends LazyInitHelper {
         private final String mModuleName;
@@ -46,13 +46,13 @@ public class RegexAnnotationHandler extends ChainedHandler {
 
     @NonNull
     private LazyInitHelper getLazyInitHelper(@NonNull String moduleName) {
-        LazyInitHelper lazyInitHelper = sInitHelpers.get(moduleName);
+        LazyInitHelper lazyInitHelper = mInitHelpers.get(moduleName);
         if (lazyInitHelper == null) {
-            synchronized (sInitHelpers) {
-                lazyInitHelper = sInitHelpers.get(moduleName);
+            synchronized (mInitHelpers) {
+                lazyInitHelper = mInitHelpers.get(moduleName);
                 if (lazyInitHelper == null) {
                     lazyInitHelper = new RegexAnnotationLazyInitHelper(moduleName);
-                    sInitHelpers.put(moduleName, lazyInitHelper);
+                    mInitHelpers.put(moduleName, lazyInitHelper);
                 }
             }
         }
