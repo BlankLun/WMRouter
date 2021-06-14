@@ -39,7 +39,7 @@ public class RegexAnnotationHandler extends ChainedHandler {
         }
 
         @Override
-        protected void doInit() {
+        protected void doInit() throws Throwable {
             initAnnotationConfig(mModuleName);
         }
     }

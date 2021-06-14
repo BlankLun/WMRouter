@@ -62,7 +62,7 @@ public class UriAnnotationHandler extends UriHandler {
         }
 
         @Override
-        protected void doInit() {
+        protected void doInit() throws Throwable {
             initAnnotationConfig(mModuleName);
         }
     }

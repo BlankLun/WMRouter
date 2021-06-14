@@ -44,7 +44,7 @@ public class PageAnnotationHandler extends PathHandler {
         }
 
         @Override
-        protected void doInit() {
+        protected void doInit() throws Throwable {
             initAnnotationConfig(mModuleName);
         }
     }

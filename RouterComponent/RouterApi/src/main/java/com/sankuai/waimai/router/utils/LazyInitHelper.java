@@ -15,7 +15,7 @@ import com.sankuai.waimai.router.core.Debugger;
 public abstract class LazyInitHelper {
 
     private final String mTag;
-    private boolean mHasInit = false;
+    private volatile boolean mHasInit = false;
 
     public LazyInitHelper(String tag) {
         mTag = tag;
@@ -61,5 +61,5 @@ public abstract class LazyInitHelper {
         }
     }
 
-    protected abstract void doInit();
+    protected abstract void doInit() throws Throwable;
 }
