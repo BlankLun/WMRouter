@@ -62,4 +62,13 @@ public abstract class LazyInitHelper {
     }
 
     protected abstract void doInit() throws Throwable;
+
+    /**
+     * 是否已经初始化完成
+     *
+     * @return true 成功初始化
+     */
+    public boolean isHasInit() {
+        return mHasInit;
+    }
 }

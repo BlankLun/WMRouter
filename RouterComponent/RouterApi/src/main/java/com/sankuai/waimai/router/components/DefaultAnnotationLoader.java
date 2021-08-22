@@ -2,6 +2,7 @@ package com.sankuai.waimai.router.components;
 
 import com.sankuai.waimai.router.Router;
 import com.sankuai.waimai.router.core.UriHandler;
+import com.sankuai.waimai.router.service.ServiceLoader;
 
 import java.util.List;
 
@@ -18,8 +19,12 @@ public class DefaultAnnotationLoader implements AnnotationLoader {
 
     @Override
     public <T extends UriHandler> void load(@NonNull String moduleName, T handler,
-            Class<? extends AnnotationInit<T>> initClass) {
+            Class<? extends AnnotationInit<T>> initClass) throws ClassNotFoundException {
         List<? extends AnnotationInit<T>> services = Router.getAllServices(moduleName, initClass);
+        if (services.isEmpty() && !ServiceLoader.isHasInit(moduleName)) {
+            throw new ClassNotFoundException("DefaultAnnotationLoader load initClass " +
+                    initClass.getCanonicalName() + " but not find in module " + moduleName);
+        }
         for (AnnotationInit<T> service : services) {
             service.init(handler);
         }

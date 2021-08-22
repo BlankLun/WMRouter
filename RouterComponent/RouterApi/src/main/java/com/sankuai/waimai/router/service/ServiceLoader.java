@@ -69,9 +69,21 @@ public class ServiceLoader<I> {
 
     /**
      * @see LazyInitHelper#lazyInit()
+     *
+     * @param moduleName 模块名
      */
     public static void lazyInit(@NonNull String moduleName) {
         getLazyInitHelper(moduleName).lazyInit();
+    }
+
+    /**
+     * @see LazyInitHelper#isHasInit()
+     *
+     * @param moduleName 模块名
+     * @return true 已经成功初始化
+     */
+    public static boolean isHasInit(@NonNull String moduleName) {
+        return getLazyInitHelper(moduleName).isHasInit();
     }
 
     /**

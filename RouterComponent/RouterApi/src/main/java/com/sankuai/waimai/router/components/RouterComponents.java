@@ -45,7 +45,8 @@ public class RouterComponents {
     /**
      * @see AnnotationLoader#load(String, UriHandler, Class)
      */
-    public static <T extends UriHandler> void loadAnnotation(@NonNull String moduleName, T handler, Class<? extends AnnotationInit<T>> initClass) {
+    public static <T extends UriHandler> void loadAnnotation(@NonNull String moduleName, T handler,
+            Class<? extends AnnotationInit<T>> initClass) throws ClassNotFoundException {
         sAnnotationLoader.load(moduleName, handler, initClass);
     }
 

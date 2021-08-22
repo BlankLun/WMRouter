@@ -1,5 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 ext {
+    IS_BUNDLE_MODULE=true
     gradle.startParameter.getTaskNames().each {taskName ->
         println "taskName=$taskName"
         if (taskName.toLowerCase().contains("nonbundle")) {

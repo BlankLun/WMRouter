@@ -76,7 +76,7 @@ public class PageAnnotationHandler extends PathHandler {
         getLazyInitHelper(moduleName).lazyInit();
     }
 
-    protected void initAnnotationConfig(@NonNull String moduleName) {
+    protected void initAnnotationConfig(@NonNull String moduleName) throws ClassNotFoundException {
         RouterComponents.loadAnnotation(moduleName, this, IPageAnnotationInit.class);
     }
 

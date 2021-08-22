@@ -11,5 +11,5 @@ import androidx.annotation.NonNull;
  */
 public interface AnnotationLoader {
 
-    <T extends UriHandler> void load(@NonNull String moduleName, T handler, Class<? extends AnnotationInit<T>> initClass);
+    <T extends UriHandler> void load(@NonNull String moduleName, T handler, Class<? extends AnnotationInit<T>> initClass) throws ClassNotFoundException;
 }

@@ -66,7 +66,7 @@ public class RegexAnnotationHandler extends ChainedHandler {
         getLazyInitHelper(moduleName).lazyInit();
     }
 
-    protected void initAnnotationConfig(@NonNull String moduleName) {
+    protected void initAnnotationConfig(@NonNull String moduleName) throws ClassNotFoundException {
         RouterComponents.loadAnnotation(moduleName, this, IRegexAnnotationInit.class);
     }
 
